@@ -158,7 +158,7 @@ function New_In() {
           </Link>
         </div>
 
-        <div className="flex gap-5 mr-15">
+        <div className="flex gap-5 mr-5">
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
@@ -219,7 +219,7 @@ function New_In() {
                           </button>
                           ))}
                       </div>
-
+                      
                     </div>
 
                     {/* Product Info */}

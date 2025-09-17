@@ -53,7 +53,7 @@ function Main_Navbar() {
         </li>
       </ul>
 
-      {/* SearchBox Overlay */}'
+      {/* SearchBox Overlay */}
       <SearchBoxOverlay showSearch={showSearch} setShowSearch={setShowSearch} />
       
     </div>
