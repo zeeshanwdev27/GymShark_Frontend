@@ -185,6 +185,8 @@ function New_In() {
         </div>
       </div>
 
+
+      {/* Crousel */}
       <div className="flex justify-center w-full px-14 pb-14">
         <Carousel opts={{ align: "start" }} className="w-full">
           <CarouselContent>
@@ -192,18 +194,32 @@ function New_In() {
               <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
                 <div className="p-1">
                   <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2">
+                    
                     {/* Product Image */}
-                    <div className="relative w-ful aspect-[3/4] overflow-hidden">
+                    <div className="relative w-full aspect-[3/4] overflow-hidden group">
                       <img
                         src={item.front_img}
                         alt={item.product_data[0]}
-                        className="w-full h-full object-cover hover:opacity-0 transition duration-500 absolute top-0 left-0"
+                        className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
                       />
                       <img
                         src={item.back_img}
                         alt={`${item.product_data[0]} back`}
-                        className="w-full h-full object-cover opacity-0 hover:opacity-100 transition duration-500 absolute top-0 left-0"
+                        className="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
                       />
+
+                      {/* Size Button Overlay */}
+                      <div className="absolute bottom-0 left-0 w-full bg-gray-50 p-3 grid grid-cols-4 gap-2 opacity-0 
+                      group-hover:opacity-100 transition duration-400">
+                        {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
+                          <button key={size}
+                          className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
+                          >
+                            {size}
+                          </button>
+                          ))}
+                      </div>
+
                     </div>
 
                     {/* Product Info */}
