@@ -3,4 +3,5 @@ axios
 react-router-dom
 redux-toolkit
 shadcn, also included with "lucide-react" Icons
+react-icons
 framer-motion                                                 // motion/react, for animations
