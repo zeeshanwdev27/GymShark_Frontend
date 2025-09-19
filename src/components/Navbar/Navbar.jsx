@@ -35,7 +35,7 @@ function Navbar() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed left-0 w-full z-50"
       >
-        <Main_Navbar />
+        <Main_Navbar isScrolled={isScrolled} />
       </motion.div>
     </>
   );

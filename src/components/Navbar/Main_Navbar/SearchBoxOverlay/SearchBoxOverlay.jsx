@@ -30,7 +30,7 @@ function SearchBoxOverlay({ showSearch, setShowSearch }) {
             {/* Search Box */}
             <div className="relative flex items-center w-full">
               <div
-                className="mx-auto bg-gray-100 flex items-center w-1/2 max-w-sm rounded-sm px-4 py-3 shadow-sm p-2 gap-3 
+                className="mx-auto bg-gray-100 flex items-center w-2/3 md:w-1/2 max-w-sm rounded-sm px-4 py-3 shadow-sm p-2 gap-3 
                 focus-within:ring-1 focus-within:ring-black  "
               >
                 <Search className="w-5 h-5 text-gray-800 flex-shrink-0" />
@@ -55,7 +55,7 @@ function SearchBoxOverlay({ showSearch, setShowSearch }) {
 
               <button
                 onClick={() => setShowSearch(false)}
-                className="absolute right-12 cursor-pointer p-2"
+                className="absolute right-3 md:right-12 cursor-pointer p-2"
               >
                 <X className="w-8 h-8 text-black" />
               </button>
@@ -64,7 +64,7 @@ function SearchBoxOverlay({ showSearch, setShowSearch }) {
             <Separator />
 
             {/* Trending Section */}
-            <div className="flex flex-col justify-start gap-5 px-70">
+            <div className="flex flex-col justify-start gap-5 px-5 md:px-70">
               <h1 className="text-sm font-bold">TRENDING SEARCHES</h1>
               <div className="flex gap-3">
                 <TrendingUp className="w-6 h-6 text-gray-800" />
