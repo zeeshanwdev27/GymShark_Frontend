@@ -1,5 +1,5 @@
 import React from 'react'
-import heroSection from '../../../assets/Gymshark/heroSection.avif'
+import heroSection from '../../../assets/Gymshark/HeroSection/heroSection.avif'
 import { Button } from "@/components/ui/button"
 
 function HeroSection() {

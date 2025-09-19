@@ -71,11 +71,11 @@ function Detail_Section() {
           section.map((item, index) => (
             <div key={`${sectionIndex}-${index}`}>
               <h2 className="text-lg font-bold mb-4 truncate">{item.title}</h2>
-              <ul className="flex flex-col gap-1 text-black text-sm font-medium">
+              <ul className="flex flex-col gap-1 text-black text-sm font-semibold">
                 {item.category.map((cat, catIndex) => (
                   <li
                     key={catIndex}
-                    className="cursor-pointer text-gray-800 hover:text-black"
+                    className="cursor-pointer text-black opacity-70 hover:opacity-100"
                   >
                     {cat}
                   </li>
