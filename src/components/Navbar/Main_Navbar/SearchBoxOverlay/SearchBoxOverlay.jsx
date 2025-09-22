@@ -64,7 +64,7 @@ function SearchBoxOverlay({ showSearch, setShowSearch }) {
             <Separator />
 
             {/* Trending Section */}
-            <div className="flex flex-col justify-start gap-5 px-5 md:px-70">
+            <div className="flex flex-col justify-start gap-5 px-5 md:px-30 lg:px-70">
               <h1 className="text-sm font-bold">TRENDING SEARCHES</h1>
               <div className="flex gap-3">
                 <TrendingUp className="w-6 h-6 text-gray-800" />

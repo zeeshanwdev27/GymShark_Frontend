@@ -8,11 +8,13 @@ import {
 } from "lucide-react";
 import logo from "../../../assets/Gymshark/logo.avif";
 import Menu from "./Menu/Menu";
-import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
 import { motion } from "motion/react";
+import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
+import HamburgerOverlay from "./HamburgerOverlay/HamburgerOverlay"
 
 function Main_Navbar({isScrolled}) {
   const [showSearch, setShowSearch] = useState(false);
+  const [showMenu, setShowMenu] = useState(false)
 
   // Scroll Hide
   useEffect(() => {
@@ -23,33 +25,43 @@ function Main_Navbar({isScrolled}) {
     }
   }, [showSearch]);
 
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showMenu]);
+
   return (
     <div className="bg-white shadow w-full">
-      {/* Top Row */}
 
-      <div className="flex justify-between items-center py-7 px-7 md:py-4 md:px-12 ">
+      {/* Top Row */}
+      <div className="flex justify-between items-center py-7 px-7 lg:py-4 lg:px-12 ">
+
         <div className="flex items-center">
+
           {/* Desktop Menu */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Menu />
           </div>
+
           {/* Mobile Hamburger */}
-          <button className="block md:hidden">
-            <MenuIcon className="w-6 h-6" strokeWidth={1.5} />
+          <button className="block lg:hidden">
+            <MenuIcon className="w-6 h-6" strokeWidth={1.5} onClick={()=> setShowMenu(true)} />
           </button>
         </div>
 
         {/* Logo */}
-        <img
-          src={logo}
-          className="h-5  pl-10 md:ml-38 md:pr-0 object-contain"
+        <img src={logo}
+          className="h-5 pl-10 md:pl-23 lg:pl-45 lg:pr-0 object-contain"
           alt="GYMSHARK_LOGO"
         />
 
         {/* Right Icons */}
         <ul className="flex justify-center items-center md:gap-8 gap-6">
           {/* Desktop SearchBox */}
-          <li className="hidden md:block">
+          <li className="hidden lg:block">
             <div
               onClick={() => setShowSearch(true)}
               className="rounded-2xl bg-gray-100 hover:bg-white border border-transparent hover:border hover:border-gray-300 hover:cursor-pointer py-2 px-4 flex gap-3"
@@ -75,7 +87,7 @@ function Main_Navbar({isScrolled}) {
       </div>
 
       {/* Mobile Search Bar */}
-                 <motion.div
+      <motion.div
         initial={false}
         animate={{
           height: isScrolled ? 0 : "auto",
@@ -83,10 +95,10 @@ function Main_Navbar({isScrolled}) {
           marginBottom: isScrolled ? 0 : 20, // optional for spacing
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="overflow-hidden md:hidden px-4"
+        className="overflow-hidden lg:hidden px-4"
       >
 
-      <div className="md:hidden block pb-5 px-4">
+      <div className="lg:hidden block pb-5 px-4">
         <div
           onClick={() => setShowSearch(true)}
           className="rounded-4xl bg-gray-100 hover:bg-white border border-transparent hover:border hover:border-gray-300 hover:cursor-pointer py-3 px-4 flex gap-3"
@@ -103,6 +115,9 @@ function Main_Navbar({isScrolled}) {
 
       {/* SearchBox Overlay */}
       <SearchBoxOverlay showSearch={showSearch} setShowSearch={setShowSearch} />
+
+      {/* Hamburger_Menu Overlay */}
+      <HamburgerOverlay showMenu={showMenu} setShowMenu={setShowMenu} setShowSearch={setShowSearch}/>
     </div>
   );
 }
