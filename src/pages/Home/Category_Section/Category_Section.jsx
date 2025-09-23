@@ -25,8 +25,8 @@ function Category_Section() {
 
 
   return (
-          <div className="flex justify-center w-full px-14 pb-14 mt-5">
-            <Carousel opts={{ align: "start" }} className="w-full">
+          <div className="flex justify-center w-full px-5 lg:px-14 pb-14 mt-5">
+            <Carousel opts={{ align: "start" }} className="w-full overflow-hidden">
               <CarouselContent>
                 {categoryData.map((item, index) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">

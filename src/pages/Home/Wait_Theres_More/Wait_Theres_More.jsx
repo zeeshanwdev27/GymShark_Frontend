@@ -124,9 +124,9 @@ function Wait_Theres_More() {
   return (
     <>
       <div className=" w-full  pb-5 ">
-        <h1 className="text-2xl font-bold pb-5 px-15">WAIT THERE’S MORE…</h1>
+        <h1 className="text-2xl font-bold pb-5 px-5 lg:px-15">WAIT THERE’S MORE…</h1>
 
-        <div className="flex justify-between px-20">
+        <div className="flex justify-between px-5 lg:px-20">
           <div className="flex gap-7 justify-center items-center">
             <div className="flex gap-3">
               <Button
@@ -190,7 +190,7 @@ function Wait_Theres_More() {
 {activeData.length > 4  && (
 
 
-          <div className="flex gap-5 mr-5 mt-2">
+          <div className="hidden lg-flex gap-5 mr-5 mt-2">
             <button
               onClick={handlePrev}
               disabled={currentIndex === 0}
@@ -220,15 +220,15 @@ function Wait_Theres_More() {
       </div>
 
       {/* Crousel */}
-      <div className="flex justify-center w-full px-14 pb-14">
-        <Carousel opts={{ align: "start" }} className="w-full">
+      <div className="flex justify-center w-full px-5 lg:px-14 pb-14">
+        <Carousel opts={{ align: "start" }} className="w-full overflow-hidden">
           <CarouselContent>
             {activeData.map((item, index) => (
               <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
                 <div className="p-1">
                   <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2">
                     {/* Product Image */}
-                    <div className=" w-full aspect-[3/4] overflow-hidden">
+                    <div className=" w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden">
                       <img
                         src={item.img}
                         alt={item.title}

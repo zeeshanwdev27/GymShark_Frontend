@@ -65,8 +65,8 @@ function Detail_Section() {
   };
 
   return (
-    <div className="w-full px-14 pt-10 pb-20">
-      <div className="grid grid-cols-4 gap-2 mb-20">
+    <div className="w-full px-5 lg:px-14 pt-2 lg:pt-10 pb-20">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-2 gap-7 mb-10 lg:mb-20">
         {Object.values(category_Links).map((section, sectionIndex) =>
           section.map((item, index) => (
             <div key={`${sectionIndex}-${index}`}>
@@ -88,9 +88,9 @@ function Detail_Section() {
 
       <Separator className="w-full" />
 
-      <div className="mt-10 flex flex-col gap-5">
+      <div className="mt-10 flex flex-col gap-7 lg:gap-5">
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl font-bold mb-1">WORKOUT CLOTHES & GYM CLOTHES</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold mb-1">WORKOUT CLOTHES & GYM CLOTHES</h1>
           <p className="text-[14px]">
             Workout Clothes designed to help you become your personal best.
             Because when it comes to performing at your max, there should be no
@@ -104,7 +104,7 @@ function Detail_Section() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h1 className="text-2xl font-bold  mb-1">GYM CLOTHES BUILT IN THE WEIGHT ROOM</h1>
+          <h1 className="text-xl lg:text-2xl font-bold  mb-1">GYM CLOTHES BUILT IN THE WEIGHT ROOM</h1>
           <p className="text-[14px]">
             Our legacy was built in the weight room. Gymshark was founded with a
             love for training and that passion continues into all our gym
@@ -127,7 +127,7 @@ function Detail_Section() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h1 className="text-2xl font-bold  mb-1">ACTIVEWEAR & ATLEISURE</h1>
+          <h1 className="text-xl lg:text-2xl font-bold  mb-1">ACTIVEWEAR & ATLEISURE</h1>
           <p className="text-[14px]">
             We create the tools that help everyone become their personal best –
             no matter the sport. Our range of Activewear is designed to give you
@@ -143,7 +143,7 @@ function Detail_Section() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h1 className="text-2xl font-bold  mb-1">MORE THEN YOUR BEST WORKOUT CLOTHING</h1>
+          <h1 className="text-xl lg:text-2xl font-bold  mb-1">MORE THEN YOUR BEST WORKOUT CLOTHING</h1>
           <p className="text-[14px]">
             The Gymshark community is devoted to unlocking potential through
             conditioning and the things we do today to prepare for tomorrow.

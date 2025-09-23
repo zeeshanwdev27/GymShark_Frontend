@@ -147,8 +147,9 @@ function New_In() {
 
   return (
     <>
-      <div className="flex justify-between w-full px-20 pb-5 pt-[40px]">
-        <div className="flex gap-7 justify-center items-center">
+      <div className="flex justify-between w-full px-5 lg:px-20 pb-5 pt-[40px]">
+
+        <div className="flex gap-7 justify-between lg:justify-center items-center w-full lg:w-auto">
           <h1 className="text-2xl font-bold">NEW IN</h1>
           <Link
             to={"#"}
@@ -158,7 +159,7 @@ function New_In() {
           </Link>
         </div>
 
-        <div className="flex gap-5 mr-5">
+        <div className="hidden lg:flex gap-5 mr-5">
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
@@ -187,16 +188,16 @@ function New_In() {
 
 
       {/* Crousel */}
-      <div className="flex justify-center w-full px-14 pb-14">
-        <Carousel opts={{ align: "start" }} className="w-full">
+      <div className="flex justify-center w-full px-5 lg:px-14 pb-14">
+        <Carousel opts={{ align: "start" }} className="w-full overflow-hidden">
           <CarouselContent>
             {crouselData.map((item, index) => (
-              <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4 ">
                 <div className="p-1">
-                  <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2">
+                  <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
                     
                     {/* Product Image */}
-                    <div className="relative w-full aspect-[3/4] overflow-hidden group">
+                    <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden group">
                       <img
                         src={item.front_img}
                         alt={item.product_data[0]}
@@ -205,11 +206,11 @@ function New_In() {
                       <img
                         src={item.back_img}
                         alt={`${item.product_data[0]} back`}
-                        className="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
+                        className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
                       />
 
                       {/* Size Button Overlay */}
-                      <div className="absolute bottom-0 left-0 w-full bg-gray-50 p-3 grid grid-cols-4 gap-2 opacity-0 
+                      <div className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
                       group-hover:opacity-100 transition duration-400">
                         {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
                           <button key={size}
@@ -219,13 +220,18 @@ function New_In() {
                           </button>
                           ))}
                       </div>
+
+
+                      <div>
+
+                      </div>
                       
                     </div>
 
                     {/* Product Info */}
                     <CardContent className="flex justify-between px-0">
                       <div className="flex flex-col gap-1">
-                        <h2 className="text-sm font-semibold truncate">
+                        <h2 className="text-md lg:text-sm font-semibold truncate">
                           {item.product_data[0]}
                         </h2>
                         <p className="text-sm text-gray-500">
@@ -255,6 +261,7 @@ function New_In() {
           <CarouselNext ref={nextRef} className="sr-only" />
         </Carousel>
       </div>
+
     </>
   );
 }
