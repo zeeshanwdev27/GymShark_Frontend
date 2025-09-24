@@ -54,7 +54,7 @@ function Main_Navbar({isScrolled}) {
         </div>
 
         {/* Logo */}
-        <Link to='/'>
+        <Link to="/">
         <img src={logo}
           className="h-5 pl-10 md:pl-23 lg:pl-45 lg:pr-0 object-contain cursor-pointer"
           alt="GYMSHARK_LOGO"
