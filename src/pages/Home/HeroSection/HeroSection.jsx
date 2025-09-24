@@ -2,11 +2,11 @@ import React from "react";
 import heroSection from "../../../assets/Gymshark/HeroSection/heroSection.avif";
 import heroSectionMob from "../../../assets/Gymshark/HeroSection/heroSectionMob.avif";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 function HeroSection() {
   return (
     <div className="relative flex md:items-center items-end  lg:h-[80vh] h-[90vh] md:h-[50vh] mt-19 md:mt-19 lg:mt-0">
-
       <picture className="absolute inset-0">
         {/* Large screen (md and up) */}
         <source srcSet={heroSection} media="(min-width: 768px)" />
@@ -46,24 +46,27 @@ function HeroSection() {
           </p>
 
           <p className="text-white text-[16px] md:hidden">
-          Time to pick up the gym kit you’ve been eyeing all season. Make it count. *selected styles only
+            Time to pick up the gym kit you’ve been eyeing all season. Make it
+            count. *selected styles only
           </p>
 
-
-
           <div className="flex flex-col md:flex-row gap-3 md:gap-5">
-            <Button
-              variant="secondary"
-              className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
-            >
-              SHOP WOMEN
-            </Button>
-            <Button
-              variant="secondary"
-              className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
-            >
-              SHOP MEN
-            </Button>
+            <Link to="/collections/womens">
+              <Button
+                variant="secondary"
+                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
+              >
+                SHOP WOMEN
+              </Button>
+            </Link>
+            <Link to="/collections/mens">
+              <Button
+                variant="secondary"
+                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
+              >
+                SHOP MEN
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
