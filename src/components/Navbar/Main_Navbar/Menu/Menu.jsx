@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Menu() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -131,7 +130,7 @@ function Menu() {
           key={index}
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
-          className={`relative cursor-pointer text-md transition-colors duration-200 
+          className={`relative text-md transition-colors duration-200 
             ${
               hoveredIndex === index
                 ? "text-black"
@@ -140,7 +139,7 @@ function Menu() {
                 : "text-black"
             }`}
         >
-          <NavLink>{link}</NavLink>
+          <p className="cursor-default">{link}</p>
 
           {/* underline Animate */}
           <AnimatePresence>
