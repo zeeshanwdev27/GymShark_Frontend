@@ -11,6 +11,7 @@ import Menu from "./Menu/Menu";
 import { motion } from "motion/react";
 import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
 import HamburgerOverlay from "./HamburgerOverlay/HamburgerOverlay"
+import { Link } from "react-router-dom";
 
 function Main_Navbar({isScrolled}) {
   const [showSearch, setShowSearch] = useState(false);
@@ -53,10 +54,12 @@ function Main_Navbar({isScrolled}) {
         </div>
 
         {/* Logo */}
+        <Link to='/'>
         <img src={logo}
-          className="h-5 pl-10 md:pl-23 lg:pl-45 lg:pr-0 object-contain"
+          className="h-5 pl-10 md:pl-23 lg:pl-45 lg:pr-0 object-contain cursor-pointer"
           alt="GYMSHARK_LOGO"
         />
+        </Link>
 
         {/* Right Icons */}
         <ul className="flex justify-center items-center md:gap-8 gap-6">
