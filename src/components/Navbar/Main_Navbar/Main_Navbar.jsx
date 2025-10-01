@@ -123,7 +123,7 @@ function Main_Navbar({ isScrolled }) {
             >
               <TooltipTrigger asChild>
                 <User
-                  className="w-5 h-6 cursor-pointer hover-lift"
+                  className="w-5 h-6 cursor-pointer transform transition duration-300 lg:hover:-translate-y-1"
                   strokeWidth={1.5}
                 />
               </TooltipTrigger>
@@ -151,9 +151,9 @@ function Main_Navbar({ isScrolled }) {
           </li>
 
           {/* Shopping Icons */}
-          <li className="cursor-pointer hover-lift">
+          <li className="cursor-pointer">
             <ShoppingBag
-              className="w-5 h-6 cursor-pointer"
+              className="w-5 h-6 cursor-pointer transform transition duration-300 lg:hover:-translate-y-1"
               strokeWidth={1.5}
               onClick={() => setAddToCart(true)}
             />

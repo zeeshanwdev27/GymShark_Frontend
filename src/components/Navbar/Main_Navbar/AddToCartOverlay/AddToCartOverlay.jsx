@@ -102,7 +102,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
             <div className="min-h-screen flex flex-col justify-center gap-7 items-center w-full pb-30">
               <div className="flex flex-col gap-3 justify-center items-center">
                 <div className="flex gap-3 items-center">
-                  <Heart className="w-4.5 h-5" strokeWidth={1.5} />
+                  <Heart className="w-6 h-6 fill-black" stroke="none" />
                   <h2 className="text-lg font-bold truncate">
                     SAVE TO WISHLIST
                   </h2>
