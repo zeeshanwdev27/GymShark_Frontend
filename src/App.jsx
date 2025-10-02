@@ -11,9 +11,9 @@ const App = createBrowserRouter(
     <Route path='/' element={<Layout/>}>
 
       <Route index element={<Home/>} />
-      <Route path="/collections/mens" element={<Men_Section/>} />
-      <Route path="/collections/womens" element={<Women_Section/>} />
-      <Route path="/collections/product" element={<Product/>} />
+      <Route path="collections/mens" element={<Men_Section/>} />
+      <Route path="collections/womens" element={<Women_Section/>} />
+      <Route path="collections/product" element={<Product/>} />
 
 
     </Route>
