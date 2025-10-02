@@ -29,9 +29,9 @@ function Footer() {
     <>
       <div className=" lg:py-10 px-5 lg:px-14 w-full border-t border-gray-200 shadow-sm overflow-hidden">
   {/* First Row */}
-        <div className="lg:grid lg:grid-cols-2 lg:gap-58 overflow-hidden">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-[58px] overflow-hidden">
           {/* Link List's */}
-          <div className="hidden lg:grid grid-cols-3 w-[10]">
+          <div className="hidden lg:grid grid-cols-3 w-[100%]">
             <ul className="flex flex-col gap-2">
               <li className="text-md font-bold text-black pb-2">HELP</li>
               <li className="font-semibold text-black cursor-pointer opacity-70 hover:opacity-100 transition text-sm">
