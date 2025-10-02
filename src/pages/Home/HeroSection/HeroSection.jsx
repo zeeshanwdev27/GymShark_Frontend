@@ -1,6 +1,4 @@
 import React from "react";
-import heroSection from "../../../assets/Gymshark/HeroSection/heroSection.avif";
-import heroSectionMob from "../../../assets/Gymshark/HeroSection/heroSectionMob.avif";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -9,11 +7,11 @@ function HeroSection() {
     <div className="relative flex md:items-center items-end  lg:h-[80vh] h-[90vh] md:h-[50vh] mt-19 md:mt-19 lg:mt-0">
       <picture className="absolute inset-0">
         {/* Large screen (md and up) */}
-        <source srcSet={heroSection} media="(min-width: 768px)" />
+        <source srcSet="https://res.cloudinary.com/dzhovcqy3/image/upload/v1759396526/heroSection_okv7bw.avif" media="(min-width: 768px)" />
         {/* Default (small screens) */}
         <img
-          src={heroSectionMob}
-          alt="Hero"
+          src="https://res.cloudinary.com/dzhovcqy3/image/upload/v1759396534/heroSectionMob_jign4n.avif"
+          alt="HeroSection_Mobile"
           className="w-full h-full object-cover"
         />
       </picture>
@@ -54,7 +52,7 @@ function HeroSection() {
             <Link to="/collections/womens">
               <Button
                 variant="secondary"
-                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
+                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer w-full"
               >
                 SHOP WOMEN
               </Button>
@@ -62,7 +60,7 @@ function HeroSection() {
             <Link to="/collections/mens">
               <Button
                 variant="secondary"
-                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer"
+                className="font-bold rounded-2xl py-5.5 px-8 cursor-pointer w-full"
               >
                 SHOP MEN
               </Button>

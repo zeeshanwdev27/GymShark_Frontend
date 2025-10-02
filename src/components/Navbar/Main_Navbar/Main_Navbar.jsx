@@ -6,7 +6,6 @@ import {
   Search,
   Menu as MenuIcon,
 } from "lucide-react";
-import logo from "../../../assets/Gymshark/logo.avif";
 import Menu from "./Menu/Menu";
 import { motion } from "motion/react";
 import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
@@ -89,7 +88,7 @@ function Main_Navbar({ isScrolled }) {
         {/* Logo */}
         <Link to="/">
           <img
-            src={logo}
+            src='https://res.cloudinary.com/dzhovcqy3/image/upload/v1759396434/GYMSHARK_LOGO_m4qppa.avif'
             className="h-5 pl-10 md:pl-23 lg:pl-45 lg:pr-0 object-contain cursor-pointer"
             alt="GYMSHARK_LOGO"
           />
