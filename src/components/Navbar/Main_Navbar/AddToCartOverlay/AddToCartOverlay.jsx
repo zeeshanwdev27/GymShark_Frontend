@@ -12,10 +12,18 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
+import {incQuantity, decQuantity} from '../../../../features/Cart/CartSlice'
+
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
+
   const items = useSelector((state) => state.carts);
   const [iconActive, setIconActive] = useState(true);
+  const dispatch = useDispatch()
+
+  const subTotal = items.reduce((sum, item)=> sum + item.price, 0)
+  const shippingPrice = 5
+  const total = subTotal + shippingPrice
 
   useEffect(() => {
     if (addToCart) {
@@ -131,6 +139,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                               </p>
                               <div className="flex gap-3 items-center">
                                 <Button
+                                  onClick={()=>dispatch(decQuantity(item.id))}
                                   variant="ghost"
                                   size="icon"
                                   className="size-8 cursor-pointer hover:bg-white"
@@ -139,6 +148,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                                 </Button>
                                 <p>{item.quantity}</p>
                                 <Button
+                                  onClick={()=>dispatch(incQuantity(item.id))}
                                   variant="ghost"
                                   size="icon"
                                   className="size-8 cursor-pointer hover:bg-white"
@@ -186,15 +196,15 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                         </h2>
                         <div className="w-full flex justify-between">
                           <p className="text-[14px]">Sub Total</p>
-                          <p className="text-[14px]">$58</p>
+                          <p className="text-[14px]">${subTotal.toFixed(2)}</p>
                         </div>
                         <div className="w-full flex justify-between">
                           <p className="text-[14px]">Estimated Shipping</p>
-                          <p className="text-[14px]">$5</p>
+                          <p className="text-[14px]">${shippingPrice.toFixed(2)}</p>
                         </div>
                         <div className="w-full flex justify-between">
                           <p className="font-bold text-[14px]">Total</p>
-                          <p className="font-bold text-[14px]">$63</p>
+                          <p className="font-bold text-[14px]">${total.toFixed(2)}</p>
                         </div>
                       </div>
                     </div>
