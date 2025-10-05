@@ -9,11 +9,16 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../features/Cart/CartSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 function New_In() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dispatch = useDispatch()
+
 
   const crouselData = [
     {
@@ -22,7 +27,7 @@ function New_In() {
       back_img:
         "https://cdn.shopify.com/s/files/1/1367/5207/files/images-TrainingStraightLegLeggingGSBlackB4B7Y_BB2J_3794_V1b_640x.jpg?v=1756280501",
       product_data: ["Training Straight Leg Leggings", "Regular", "Black"],
-      product_price: "US$14",
+      product_price: 14,
       product_rating: "★3.5",
     },
     {
@@ -31,7 +36,7 @@ function New_In() {
       back_img:
         "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsGSBlackA4B8B_BB2J_0521_V1_9635a758-4192-4060-9481-ed2cb8103d40_640x.jpg?v=1757337205",
       product_data: ["Straight Leg Pumper Pants", "Oversized Fit", "Black"],
-      product_price: "US$75",
+      product_price: 75,
       product_rating: "★5",
     },
     {
@@ -40,7 +45,7 @@ function New_In() {
       back_img:
         "https://cdn.shopify.com/s/files/1/1367/5207/files/images-CrestStraightLegJoggerGSArchiveBrownA5A1O_NBY8_1796_640x.jpg?v=1754643063",
       product_data: ["Crest Straight Leg Joggers", "Regular", "Brown"],
-      product_price: "US$55",
+      product_price: 55,
       product_rating: "★4.3",
     },
     {
@@ -53,7 +58,7 @@ function New_In() {
         "Regular",
         "Cherry Purple",
       ],
-      product_price: "US$45",
+      product_price: 45,
       product_rating: "★3.5",
     },
     {
@@ -62,7 +67,7 @@ function New_In() {
       back_img:
         "https://cdn.shopify.com/s/files/1/1367/5207/files/images-EverydayWovenStraightLegJoggerGSBlackB4C1F_BB2J_0641_V1b_640x.jpg?v=1756241602",
       product_data: ["Everyday Woven Straight Leg Joggers", "Regular", "Black"],
-      product_price: "US$50",
+      product_price: 50,
       product_rating: "★3.9",
     },
     {
@@ -75,7 +80,7 @@ function New_In() {
         "body fit",
         "Iron Blue",
       ],
-      product_price: "US$65",
+      product_price: 65,
       product_rating: "★4.1",
     },
     {
@@ -88,7 +93,7 @@ function New_In() {
         "oversized fit",
         "Spiced Brown",
       ],
-      product_price: "US$75",
+      product_price: 75,
       product_rating: "★5",
     },
     {
@@ -101,7 +106,7 @@ function New_In() {
         "Regular Fit",
         "Black",
       ],
-      product_price: "US$75",
+      product_price: 75,
       product_rating: "★4.7",
     },
     {
@@ -110,7 +115,7 @@ function New_In() {
       back_img:
         "https://cdn.shopify.com/s/files/1/1367/5207/files/WristStrapsBlackI1A3Y-BBBB.1020.143_640x.jpg?v=1722505039",
       product_data: ["Wrist Straps", "Double Pair", "Black"],
-      product_price: "US$28",
+      product_price: 28,
       product_rating: "★4.5",
     },
     {
@@ -123,7 +128,7 @@ function New_In() {
         "Oversized Fsit",
         "Deep Petrol Blue",
       ],
-      product_price: "US$70",
+      product_price: 70,
       product_rating: "★5",
     },
   ];
@@ -144,6 +149,7 @@ function New_In() {
       setCurrentIndex((prev) => prev + 1);
     }
   };
+
 
   return (
     <>
@@ -214,6 +220,17 @@ function New_In() {
                       group-hover:opacity-100 transition duration-400">
                         {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
                           <button key={size}
+                          onClick={()=> dispatch(addToCart({
+                            id: nanoid(),
+                            image: item.front_img,
+                            title: item.product_data[0],
+                            size: size,
+                            sizeType: item.product_data[1],
+                            color: item.product_data[2],
+                            price: item.product_price,
+                            unitPrice: item.product_price,
+                            quantity: 1,
+                          }))}
                           className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
                           >
                             {size}
@@ -242,7 +259,7 @@ function New_In() {
                         </p>
                         {/* Price & Rating */}
                         <p className="text-sm font-bold">
-                          {item.product_price}
+                          US${item.product_price}
                         </p>
                       </div>
 

@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import {incQuantity, decQuantity} from '../../../../features/Cart/CartSlice'
+import {incQuantity, decQuantity, removeToCart} from '../../../../features/Cart/CartSlice'
 
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
@@ -122,24 +122,33 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                           <img
                             className="w-19 h-21"
                             src={item.image}
-                            alt={item.product}
+                            alt={item.title}
                           />
                           <div className="flex flex-col justify-between">
-                            <div>
+                            
+                             
                               <p className="text-[13.1px] truncate">
-                                {item.product}
+                                {item.title}
                               </p>
                               <p className="text-[13.1px] truncate opacity-60">
                                 {item.size}
                               </p>
-                            </div>
+                             
+                            
                             <div className="w-full flex justify-between items-center">
                               <p className="text-[13.1px] font-semibold truncate">
                                 ${item.price}
                               </p>
                               <div className="flex gap-3 items-center">
                                 <Button
-                                  onClick={()=>dispatch(decQuantity(item.id))}
+                                  onClick={()=> {
+                                    if (item && item.quantity > 1) {
+                                      dispatch(decQuantity(item.id))
+                                    }else{
+                                      dispatch(removeToCart(item.id))
+                                    }
+                                  }
+                                  }
                                   variant="ghost"
                                   size="icon"
                                   className="size-8 cursor-pointer hover:bg-white"

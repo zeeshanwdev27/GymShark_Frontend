@@ -17,11 +17,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSelector } from "react-redux";
 
 function Main_Navbar({ isScrolled }) {
   const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [addToCart, setAddToCart] = useState(false);
+  const items = useSelector((state) => state.carts);
 
   // Scroll Hide
   useEffect(() => {
@@ -47,6 +49,13 @@ function Main_Navbar({ isScrolled }) {
       document.body.style.overflow = "auto";
     }
   }, [addToCart]);
+
+  useEffect(()=>{
+    if(items.length > 0){
+      setAddToCart(true)
+    }
+
+  },[items])
 
   // Timer For ToolTip Popup
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -150,12 +159,16 @@ function Main_Navbar({ isScrolled }) {
           </li>
 
           {/* Shopping Icons */}
-          <li className="cursor-pointer">
+          <li className="cursor-pointer group" onClick={() => setAddToCart(true)}>
             <ShoppingBag
-              className="w-5 h-6 cursor-pointer transform transition duration-300 lg:hover:-translate-y-1"
+              className="relative w-5 h-6 cursor-pointer transform transition duration-300 group-hover:-translate-y-1"
               strokeWidth={1.5}
-              onClick={() => setAddToCart(true)}
             />
+            {
+              items.length > 0 && (
+                <span className="absolute top-0 text-xs mt-5 ml-2.5 px-[5px] py-0.2 bg-amber-700 text-white rounded-full transform transition duration-300 group-hover:-translate-y-1">{items.length}</span>
+              )
+            }
           </li>
         </ul>
       </div>
