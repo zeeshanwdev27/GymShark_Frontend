@@ -123,7 +123,7 @@ function Wait_Theres_More() {
 
   return (
     <>
-      <div className=" w-full  pb-5 ">
+      <div className="w-full pb-5">
         <h1 className="text-2xl font-bold pb-5 px-5 lg:px-15">WAIT THERE’S MORE…</h1>
 
         <div className="flex justify-between px-5 lg:px-20">
@@ -134,7 +134,7 @@ function Wait_Theres_More() {
                   setSelectedCategory("GUIDES");
                   setCurrentIndex(0);
                 }}
-                className={`font-bold text-[15px] rounded-2xl py-5 px-3 cursor-pointer ${
+                className={`font-bold text-[15px] rounded-2xl py-4 px-2 md:py-5 md:px-3 cursor-pointer ${
                   selectedCategory === "GUIDES"
                     ? "bg-black text-white"
                     : "bg-gray-100 text-black hover:bg-gray-100"
@@ -148,7 +148,7 @@ function Wait_Theres_More() {
                   setSelectedCategory("TRENDING");
                   setCurrentIndex(0);
                 }}
-                className={`font-bold text-[15px] rounded-2xl py-5 px-3 cursor-pointer ${
+                className={`font-bold text-[15px] rounded-2xl py-4 px-2 md:py-5 md:px-3 cursor-pointer ${
                   selectedCategory === "TRENDING"
                     ? "bg-black text-white"
                     : "bg-gray-100 text-black hover:bg-gray-100"
@@ -162,7 +162,7 @@ function Wait_Theres_More() {
                   setSelectedCategory("TRAINING");
                   setCurrentIndex(0);
                 }}
-                className={`font-bold text-[15px] rounded-2xl py-5 px-3 cursor-pointer ${
+                className={`font-bold text-[15px] rounded-2xl py-4 px-2 md:py-5 md:px-3 cursor-pointer ${
                   selectedCategory === "TRAINING"
                     ? "bg-black text-white"
                     : "bg-gray-100 text-black hover:bg-gray-100"
@@ -176,7 +176,7 @@ function Wait_Theres_More() {
                   setSelectedCategory("APPS");
                   setCurrentIndex(0);
                 }}
-                className={`font-bold text-[15px] rounded-2xl py-5 px-3 cursor-pointer ${
+                className={`font-bold text-[15px] rounded-2xl py-4 px-2 md:py-5 md:px-3 cursor-pointer ${
                   selectedCategory === "APPS"
                     ? "bg-black text-white"
                     : "bg-gray-100 text-black hover:bg-gray-100"
@@ -187,7 +187,8 @@ function Wait_Theres_More() {
             </div>
           </div>
 
-{activeData.length > 4  && (
+          {/* RIght Left BTN */}
+          {activeData.length > 4  && (
 
 
           <div className="hidden lg-flex gap-5 mr-5 mt-2">

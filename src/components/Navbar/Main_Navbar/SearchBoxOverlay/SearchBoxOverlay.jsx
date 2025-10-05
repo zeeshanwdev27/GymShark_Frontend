@@ -21,7 +21,7 @@ function SearchBoxOverlay({ showSearch, setShowSearch }) {
 
           {/* White search panel (25% height) */}
           <motion.div
-            className="relative bg-white h-1/4 w-full shadow-lg flex flex-col gap-4 pt-5"
+            className="relative bg-white h-1/3 w-full shadow-lg flex flex-col gap-4 pt-5"
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
