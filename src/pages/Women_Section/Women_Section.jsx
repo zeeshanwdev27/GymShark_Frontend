@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -160,14 +160,18 @@ function Women_Section() {
     },
   ];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {/* First ROw */}
-      <div className="flex flex-col gap-15 px-10 mt-19 md:mt-19 lg:mt-0 py-7">
+      <div className="flex flex-col gap-10 lg:gap-15 px-5 lg:px-10 mt-19 md:mt-19 lg:mt-0 py-7">
         <div className="flex flex-col gap-2">
           <p className="text-xs font-bold text-gray-800 truncate">WOMENS</p>
-          <h1 className="text-[44px] font-bold truncate">LAST CHANCE TO BUY</h1>
-          <p className="text-xl text-gray-800 leading-snug text-balance max-w-[55rem]">
+          <h1 className="text-[30px] lg:text-[44px] font-bold truncate">LAST CHANCE TO BUY</h1>
+          <p className="text-md lg:text-xl text-gray-800 leading-snug text-balance max-w-[55rem]">
             The only thing better than finding new workout clothes you love, is
             when they're on sale. Rn you've got the chance to pick up some of
             your go-to styles for up to 50% off in the Last Chance Sale.
@@ -347,9 +351,9 @@ function Women_Section() {
       </div>
 
       {/* Second Row */}
-      <div className="flex gap-12 w-full px-10 py-8 mb-19">
+      <div className="flex gap-12 w-full px-5 lg:px-10 py-8 mb-19">
         {/* sidebar */}
-        <div className="w-1/5 sticky top-20 self-start h-fit">
+        <div className="hidden lg:block w-1/5 sticky top-20 self-start h-fit">
           <Accordion
             type="single"
             collapsible
@@ -786,7 +790,7 @@ function Women_Section() {
         </div>
 
         {/* card's*/}
-        <div className="grid grid-cols-4 gap-2 w-full overflow-hidden">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 w-full overflow-hidden">
 
           {femalesProducts.map((item) => (
             <Card
