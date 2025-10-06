@@ -49,7 +49,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
 
           {/* Right side sliding panel */}
           <motion.div
-            className="absolute right-0 top-0 h-full w-[500px] bg-white shadow-lg flex flex-col "
+            className="absolute right-0 top-0 h-full w-full md:w-[500px] bg-white shadow-lg flex flex-col "
             initial={{ x: "100%" }} // start off-screen (to the right)
             animate={{ x: 0 }} // slide into place
             exit={{ x: "100%" }} // slide out to right
@@ -183,10 +183,10 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                         </h2>
                         <div className="flex items-center gap-2 w-full">
                           <Input
-                            className="w-full py-6.5 px-3 bg-white text-4xl"
+                            className="w-full py-6 lg:py-5 lg:px-3 bg-white lg:text-lg"
                             placeholder="Enter Code"
                           />
-                          <Button className="w-[28%] py-6.5 px-7 rounded-4xl text-md font-bold cursor-pointer">
+                          <Button className="lg:w-[25%] py-6 px-5 lg:py-6 lg:px-5 rounded-4xl text-md font-bold cursor-pointer">
                             APPLY
                           </Button>
                         </div>

@@ -154,15 +154,22 @@ function HamburgerOverlay({ showMenu, setShowMenu, setShowSearch }) {
     <AnimatePresence>
       {showMenu && (
         <div className="fixed inset-0 z-50">
+          {/* Blur background */}
           <motion.div
+            className="absolute inset-0 backdrop-blur-xs bg-black/75"
+            onClick={() => setAddToCart(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            />
+            {/* Left side sliding panel */}
+          <motion.div
+            className="relative bg-white h-screen w-full md:w-[500px] flex flex-col gap-3 pt-3 px-4 overflow-y-auto overscroll-contain"
             initial={{ x: "-100%", opacity: 0, scale: 0.95 }} 
             animate={{ x: 0, opacity: 1, scale: 1 }}
-            exit={{ x: "-100%", opacity: 0, scale: 0.95 }} 
-            transition={{
-              duration: 0.35,
-              ease: [0.25, 1, 0.5, 1], 
-            }}
-            className="relative bg-white h-screen w-full flex flex-col gap-3 pt-3 px-4 overflow-y-auto overscroll-contain"
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
           >
             {/* Top Icons */}
             <div className="flex justify-between items-center w-full pb-2">
