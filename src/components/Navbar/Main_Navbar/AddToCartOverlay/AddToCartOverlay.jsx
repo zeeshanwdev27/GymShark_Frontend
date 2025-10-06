@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import {incQuantity, decQuantity, removeToCart} from '../../../../features/Cart/CartSlice'
+import { useNavigate } from "react-router-dom";
 
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
@@ -20,6 +21,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
   const items = useSelector((state) => state.carts);
   const [iconActive, setIconActive] = useState(true);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const subTotal = items.reduce((sum, item)=> sum + item.price, 0)
   const shippingPrice = 5
@@ -278,10 +280,20 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                   </div>
 
                   <div className="flex flex-col gap-2.5 w-full justify-center items-center">
-                    <Button className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
+                    <Button 
+                    onClick={() => {
+                      navigate("/collections/mens")
+                      setAddToCart(false)
+                    }}
+                    className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
                       SHOP MENS
                     </Button>
-                    <Button className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
+                    <Button 
+                      onClick={() => {
+                      navigate("/collections/womens")
+                      setAddToCart(false)
+                    }}
+                    className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
                       SHOP WOMENS
                     </Button>
                   </div>

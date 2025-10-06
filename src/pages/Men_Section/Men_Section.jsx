@@ -16,7 +16,130 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/Cart/CartSlice";
+import { nanoid } from "@reduxjs/toolkit";
+
 function Men_Section() {
+  const dispatch = useDispatch();
+
+  const mensProducts = [
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-CollegiateOriginalsOSHoodieGSHeavyBlueA4B1J_UCTN_3955_V1_640x.jpg?v=1757947106",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-CollegiateOriginalsOSHoodieGSHeavyBlueA4B1J_UCTN_3958_V1_640x.jpg?v=1757947106",
+      product_data: ["Collegiate Hoodie", "Oversized Fit", "Heavy Blue"],
+      product_price: 60,
+      product_rating: "4.9",
+    },
+        {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerOriginalsT_ShirtCharcoalCoreMarlGSSetsRedA4B9W_GDHG_0255_640x.jpg?v=1755157708",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerOriginalsT_ShirtCharcoalCoreMarlGSSetsRedA4B9W_GDHG_5492_A_640x.jpg?v=1755157708",
+      product_data: ["Power T-Shirt", "Oversized Fit", "Charcoal Core Marl/Sets Red"],
+      product_price: 36,
+      product_rating: "4.8",
+    },
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-OldeEnglishOST_ShirtGSSoftWhiteA3B5Y_WCMY_0239_640x.jpg?v=1757584888",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-OldeEnglishOST_ShirtGSSoftWhiteA3B5Y_WCMY_0247_640x.jpg?v=1757584888",
+      product_data: ["Olde English T-Shirt", "Oversized Fit", "Soft White"],
+      product_price: 38,
+      product_rating: "4.9",
+    },
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerOriginalsCutOffTankGSBlackGSConditioningRedA4B9U_BC1D_0010_1664x.jpg?v=1755160421",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerOriginalsCutOffTankGSBlackGSConditioningRedA4B9U_BC1D_5484_A_1664x.jpg?v=1755160421",
+      product_data: ["Power Cut Off Tank", "Oversized Fit", "Black/Conditioning Red"],
+      product_price: 30,
+      product_rating: "4.4",
+    },
+
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-GeoSeamlessT_ShirtGSCementBrownGSSoulBrownA5A2D_NC8V_0261_V1a_640x.jpg?v=1759149115",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-GeoSeamlessT_ShirtGSCementBrownGSSoulBrownA5A2D_NC8V_0267_V1a_640x.jpg?v=1759149115",
+      product_data: ["Geo Seamless T-Shirt", "Slim Fit", "Soul Brown"],
+      product_price: 75,
+      product_rating: "4.9",
+    },
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerSeasonalsT_ShirtGSMediumGreyA2C9F_GB7L_0019_V2_640x.jpg?v=1759146788",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerSeasonalsT_ShirtGSMediumGreyA2C9F_GB7L_0013_V2_640x.jpg?v=1759146788",
+      product_data: ["Power Washed T-Shirt", "Oversized Fit", "GS Medium Gray"],
+      product_price: 40,
+      product_rating: "4.4",
+    },
+        {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BasketballStyleShortsGSDeepPetrolBlueA1C1I_UDRL_0378_1664x.jpg?v=1757948171",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BasketballStyleShortsGSDeepPetrolBlueA1C1I_UDRL_0381_1664x.jpg?v=1757948171",
+      product_data: ["Straight Leg Pumper Pants", "Oversized Fit", "Black"],
+      product_price: 45,
+      product_rating: "5",
+    },
+    {
+      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-PowerSeasonalsJoggerGSStrengthGreenA2C9D_ECJH_5657_A_V2_d71afcbc-c6ec-4a81-a376-a7efeb648b25_640x.jpg?v=1759406300",
+      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-A2C9D_ECJH_640x.jpg?v=1759406300",
+      product_data: ["Power Washed Jogger", "Oversized Fit", "GS Strength Green"],
+      product_price: 56,
+      product_rating: "5",
+    },
+    {
+      front_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsGSBlackA4B8B_BB2J_0515_V1_ba0d1f4a-a076-4334-ba96-1aaa3c47088d_640x.jpg?v=1757337204",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsGSBlackA4B8B_BB2J_0521_V1_9635a758-4192-4060-9481-ed2cb8103d40_640x.jpg?v=1757337205",
+      product_data: ["Straight Leg Pumper Pants", "Oversized Fit", "Black"],
+      product_price: 75,
+      product_rating: "5",
+    },
+    {
+      front_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-CrestStraightLegJoggerGSArchiveBrownA5A1O_NBY8_1794_640x.jpg?v=1754643063",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-CrestStraightLegJoggerGSArchiveBrownA5A1O_NBY8_1796_640x.jpg?v=1754643063",
+      product_data: ["Crest Straight Leg Joggers", "Regular", "Brown"],
+      product_price: 55,
+      product_rating: "4.3",
+    },
+    {
+      front_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsRep_U_A0026GsSpicedBrownA4B8B_NC86_4379_V1_f3d97dad-d650-4484-bd70-9ceccd72c536_640x.jpg?v=1757337215",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsRep_U_A0026GsSpicedBrownA4B8B_NC86_4382_V1_37066363-36fa-4b0a-9564-42eb1b5de8dd_640x.jpg?v=1757337215",
+      product_data: [
+        "Straight Leg Pumper Pants",
+        "oversized fit",
+        "Spiced Brown",
+      ],
+      product_price: 75,
+      product_rating: "5",
+    },
+    {
+      front_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/GFXRestDay1StraightLegPantGSBlackA1C9G-BB2J-0499-0081_289befd8-3c4c-4ca3-b16d-17c46e93cb99_1920x.jpg?v=1746089232",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/GFXRestDay1StraightLegPantGSBlackA1C9G-BB2J-0502-0082_fb7717a1-317b-4686-8d39-c41e4519108e_1920x.jpg?v=1746089232",
+      product_data: [
+        "Lifting Essentials Straight Leg Pants",
+        "Regular Fit",
+        "Black",
+      ],
+      product_price: 75,
+      product_rating: "4.7",
+    },
+    {
+      front_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-GFXGlobalLiftingOversizedPantGSDeepPetrolBlueA5A8K_UDRL_0413_640x.jpg?v=1756730483",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-GFXGlobalLiftingOversizedPantGSDeepPetrolBlueA5A8K_UDRL_0416_640x.jpg?v=1756730483",
+      product_data: [
+        "Global Lifting Oversized Joggers",
+        "Oversized Fsit",
+        "Deep Petrol Blue",
+      ],
+      product_price: 70,
+      product_rating: "5",
+    },
+  ];
+
   return (
     <>
       {/* First ROw */}
@@ -644,461 +767,80 @@ function Men_Section() {
 
         {/* card's*/}
         <div className="grid grid-cols-4 gap-2 w-full overflow-hidden">
-          
-          <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
+          {mensProducts.map((item) => (
+            <Card
+              key={item.index}
+              className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 "
+            >
+              {/* Product Image */}
+              <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
+                <img
+                  src={item.front_img}
+                  alt={`${item.product_data[0]}_front`}
+                  className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
+                />
+                <img
+                  src={item.back_img}
+                  alt={`${item.product_data[0]}_back`}
+                  className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
+                />
 
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
+                {/* Size Button Overlay */}
+                <div
+                  className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
                 group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
+                >
+                  {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
+                    <button
+                      key={size}
+                      onClick={() =>
+                        dispatch(
+                          addToCart({
+                            id: nanoid(),
+                            image: item.front_img,
+                            title: item.product_data[0],
+                            size: size,
+                            sizeType: item.product_data[1],
+                            color: item.product_data[2],
+                            price: item.product_price,
+                            unitPrice: item.product_price,
+                            quantity: 1,
+                          })
+                        )
+                      }
+                      className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              
-            </div>
+              {/* Product Info */}
+              <CardContent className="flex justify-between px-0">
+                <div className="flex flex-col gap-0.3">
+                  <h2 className="text-md lg:text-sm font-semibold truncate">
+                    {item.product_data[0]}
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    {item.product_data[1]}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {item.product_data[2]}
+                  </p>
+                  {/* Price & Rating */}
+                  <p className="text-sm font-bold">${item.product_price}</p>
+                </div>
 
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-                    <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
-            {/* Product Image */}
-            <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_3840x.jpg?v=1726043266"
-                alt="front_img"
-                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-              />
-              <img
-                src="https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_3840x.jpg?v=1726043266"
-                alt="back_img"
-                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-              />
-
-              {/* Size Button Overlay */}
-              <div
-                className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 
-                group-hover:opacity-100 transition duration-400"
-              >
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    className="cursor-pointer px-0 py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-
-              
-            </div>
-
-            {/* Product Info */}
-            <CardContent className="flex justify-between px-0">
-              <div className="flex flex-col gap-0.3">
-                <h2 className="text-md lg:text-sm font-semibold truncate">
-                  Sport's Jersey
-                </h2>
-                <p className="text-sm text-gray-500">Oversized Fit</p>
-                <p className="text-sm text-gray-500">Black</p>
-                {/* Price & Rating */}
-                <p className="text-sm font-bold">$28</p>
-              </div>
-
-              <div>
-                <span className="text-[13px] font-bold ">★3.9</span>
-              </div>
-            </CardContent>
-          </Card>
-
-
+                <div>
+                  <span className="text-[13px] font-bold ">
+                    ★{item.product_rating}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-
-        
       </div>
     </>
   );
