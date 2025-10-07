@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -20,141 +20,239 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/Cart/CartSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
+import Overlay_Drawer from "../Overlay_Drawer/Overlay_Drawer";
+
 function Women_Section() {
   const dispatch = useDispatch();
+  const [cardActive, setCardActive] = useState(false);
+  const [cardData, setCardData] = useState({});
 
   const femalesProducts = [
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTopWithShelfGSUnitGreenB4C6J_ECJF_1820_V2_640x.jpg?v=1759156453",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTopWithShelfGSUnitGreenB4C6J_ECJF_1841_V1b_640x.jpg?v=1759156453",
-      product_data: ["Soft Sculpt Halterneck Tank With Shelf", "Compression Fit", "Unit Green"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTopWithShelfGSUnitGreenB4C6J_ECJF_1820_V2_640x.jpg?v=1759156453",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTopWithShelfGSUnitGreenB4C6J_ECJF_1841_V1b_640x.jpg?v=1759156453",
+      product_data: [
+        "Soft Sculpt Halterneck Tank With Shelf",
+        "Compression Fit",
+        "Unit Green",
+      ],
       product_price: 48,
       product_rating: "4.9",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptCapSleeveBraletteGSUnitGreenB3B3A_ECJF_1372_V1a_640x.jpg?v=1758724171",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptCapSleeveBraletteGSUnitGreenB3B3A_ECJF_1383_V1a_640x.jpg?v=1758724174",
-      product_data: ["Soft Sculpt Cap Sleeve Bralette", "Light Support", "Unit Green"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptCapSleeveBraletteGSUnitGreenB3B3A_ECJF_1372_V1a_640x.jpg?v=1758724171",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptCapSleeveBraletteGSUnitGreenB3B3A_ECJF_1383_V1a_640x.jpg?v=1758724174",
+      product_data: [
+        "Soft Sculpt Cap Sleeve Bralette",
+        "Light Support",
+        "Unit Green",
+      ],
       product_price: 44,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTvopWithShelfGSHeavyBlueB4C6J_UCTN_0996_V2_640x.jpg?v=1759156730",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTvopWithShelfGSHeavyBlueB4C6J_UCTN_1008_V1b_640x.jpg?v=1759156730",
-      product_data: ["Soft Sculpt Halterneck Tank With Shelf", "Compression Fit", "Heavy Blue"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTvopWithShelfGSHeavyBlueB4C6J_UCTN_0996_V2_640x.jpg?v=1759156730",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptLimitedEditionHalterneckSleevelessTvopWithShelfGSHeavyBlueB4C6J_UCTN_1008_V1b_640x.jpg?v=1759156730",
+      product_data: [
+        "Soft Sculpt Halterneck Tank With Shelf",
+        "Compression Fit",
+        "Heavy Blue",
+      ],
       product_price: 48,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSRichMaroonB4C3B_NBZQ_2042_V1b_640x.jpg?v=1759152987",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSRichMaroonB4C3B_NBZQ_2052_V1_640x.jpg?v=1759152987",
-      product_data: ["Soft Sculpt Short Sleeve Midi Top", "Compression Fit", "Rich Maroon"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSRichMaroonB4C3B_NBZQ_2042_V1b_640x.jpg?v=1759152987",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSRichMaroonB4C3B_NBZQ_2052_V1_640x.jpg?v=1759152987",
+      product_data: [
+        "Soft Sculpt Short Sleeve Midi Top",
+        "Compression Fit",
+        "Rich Maroon",
+      ],
       product_price: 44,
       product_rating: "3.7",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSBlackB4C3B_BB2J_2591_V1b_640x.jpg?v=1759154325",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSBlackB4C3B_BB2J_2602_V2_640x.jpg?v=1759154325",
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSBlackB4C3B_BB2J_2591_V1b_640x.jpg?v=1759154325",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-SoftSculptShortSleeveTopGSBlackB4C3B_BB2J_2602_V2_640x.jpg?v=1759154325",
       product_data: ["Soft Sculpt Short Sleeve Midi Top", "Slim Fit", "Black"],
       product_price: 44,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSRichMaroonGSResetPinkGSOatWhiteB4B5Z_NC53_1610_V1_640x.jpg?v=1759505095",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSRichMaroonGSResetPinkGSOatWhiteB4B5Z_NC53_1573_V1_640x.jpg?v=1759505095",
-      product_data: ["Contrast Sherpa Jacket", "Compression Fit", "Rich Maroon/Reset Pink/Oat White"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSRichMaroonGSResetPinkGSOatWhiteB4B5Z_NC53_1610_V1_640x.jpg?v=1759505095",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSRichMaroonGSResetPinkGSOatWhiteB4B5Z_NC53_1573_V1_640x.jpg?v=1759505095",
+      product_data: [
+        "Contrast Sherpa Jacket",
+        "Compression Fit",
+        "Rich Maroon/Reset Pink/Oat White",
+      ],
       product_price: 78,
       product_rating: "4.9",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSRichMaroonGSResetPinkGSOatWhiteB2C6K_NC53_0761_V1a_640x.jpg?v=1759321637",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSRichMaroonGSResetPinkGSOatWhiteB2C6K_NC53_0769_V1a_640x.jpg?v=1759321637",
-      product_data: ["Contrast Track Pant", "Oversized Fit", "Rich Maroon/Reset Pink/Oat White"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSRichMaroonGSResetPinkGSOatWhiteB2C6K_NC53_0761_V1a_640x.jpg?v=1759321637",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSRichMaroonGSResetPinkGSOatWhiteB2C6K_NC53_0769_V1a_640x.jpg?v=1759321637",
+      product_data: [
+        "Contrast Track Pant",
+        "Oversized Fit",
+        "Rich Maroon/Reset Pink/Oat White",
+      ],
       product_price: 64,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSCamoBrownGSLinenBrownGSOatWhiteB2C6K_NC54_1173_V1a_640x.jpg?v=1759321772",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSCamoBrownGSLinenBrownGSOatWhiteB2C6K_NC54_1180_V1a_640x.jpg?v=1759321772",
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSCamoBrownGSLinenBrownGSOatWhiteB2C6K_NC54_1173_V1a_640x.jpg?v=1759321772",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSCamoBrownGSLinenBrownGSOatWhiteB2C6K_NC54_1180_V1a_640x.jpg?v=1759321772",
       product_data: ["Contrast Track Pant", "Oversized Fit", "Camo Brown"],
       product_price: 64,
       product_rating: "4.4",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSBlackGSGraphiteGreyGSOatWhiteB4B5Z_BDB9_1562_V1_1664x.jpg?v=1759505053",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSBlackGSGraphiteGreyGSOatWhiteB4B5Z_BDB9_1527_V1_1664x.jpg?v=1759505053",
-      product_data: ["Contrast Sherpa Jacket", "Oversized Fit", "Black/Graphite Grey/Oat White"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSBlackGSGraphiteGreyGSOatWhiteB4B5Z_BDB9_1562_V1_1664x.jpg?v=1759505053",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-BorgStatementJacketGSBlackGSGraphiteGreyGSOatWhiteB4B5Z_BDB9_1527_V1_1664x.jpg?v=1759505053",
+      product_data: [
+        "Contrast Sherpa Jacket",
+        "Oversized Fit",
+        "Black/Graphite Grey/Oat White",
+      ],
       product_price: 78,
       product_rating: "5",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackJacketGSBlackGSGraphiteGreyGSOatWhiteB4B6C_BDB9_1430_V1a_640x.jpg?v=1759321738",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackJacketGSBlackGSGraphiteGreyGSOatWhiteB4B6C_BDB9_1448_V1a_640x.jpg?v=1759321738",
-      product_data: ["Contrast Woven Jacket", "Oversized Fit", "Black/Graphite Grey/Oat White"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackJacketGSBlackGSGraphiteGreyGSOatWhiteB4B6C_BDB9_1430_V1a_640x.jpg?v=1759321738",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackJacketGSBlackGSGraphiteGreyGSOatWhiteB4B6C_BDB9_1448_V1a_640x.jpg?v=1759321738",
+      product_data: [
+        "Contrast Woven Jacket",
+        "Oversized Fit",
+        "Black/Graphite Grey/Oat White",
+      ],
       product_price: 70,
       product_rating: "4.9",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSBlackGSGraphiteGreyGSOatWhiteB2C6K_BDB9_1484_V1a_640x.jpg?v=1759321564",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSBlackGSGraphiteGreyGSOatWhiteB2C6K_BDB9_1496_V1a_640x.jpg?v=1759321564",
-      product_data: ["Contrast Track Pant", "Oversized Fit", "Black/Graphite Grey/Oat White"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSBlackGSGraphiteGreyGSOatWhiteB2C6K_BDB9_1484_V1a_640x.jpg?v=1759321564",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-StatementTrackPantGSBlackGSGraphiteGreyGSOatWhiteB2C6K_BDB9_1496_V1a_640x.jpg?v=1759321564",
+      product_data: [
+        "Contrast Track Pant",
+        "Oversized Fit",
+        "Black/Graphite Grey/Oat White",
+      ],
       product_price: 64,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfBlackMarlB4C6D_BBF3_1428_V1_640x.jpg?v=1759424685",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfBlackMarlB4C6D_BBF3_1455_V1_640x.jpg?v=1759424685",
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfBlackMarlB4C6D_BBF3_1428_V1_640x.jpg?v=1759424685",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfBlackMarlB4C6D_BBF3_1455_V1_640x.jpg?v=1759424685",
       product_data: ["Vital Tank With Shelf", "Compression Fit", "Black Marl"],
       product_price: 44,
       product_rating: "4.7",
     },
 
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSHeavyBlueMarlB4C6D_UCW7_1267_V1_640x.jpg?v=1759423403",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSHeavyBlueMarlB4C6D_UCW7_1280_V2_640x.jpg?v=1759423403",
-      product_data: ["Vital Tank With Shelf", "Compression Fit", "Heavy Blue/ Marl"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSHeavyBlueMarlB4C6D_UCW7_1267_V1_640x.jpg?v=1759423403",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSHeavyBlueMarlB4C6D_UCW7_1280_V2_640x.jpg?v=1759423403",
+      product_data: [
+        "Vital Tank With Shelf",
+        "Compression Fit",
+        "Heavy Blue/ Marl",
+      ],
       product_price: 29,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSVintageRougePinkMarlB4C6D_KDFZ_1233_V2_640x.jpg?v=1759423285",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSVintageRougePinkMarlB4C6D_KDFZ_1252_V1_640x.jpg?v=1759423285",
-      product_data: ["Vital Tank With Shelf", "Compression Fit", "GS Vintage Rouge Pink"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSVintageRougePinkMarlB4C6D_KDFZ_1233_V2_640x.jpg?v=1759423285",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSVintageRougePinkMarlB4C6D_KDFZ_1252_V1_640x.jpg?v=1759423285",
+      product_data: [
+        "Vital Tank With Shelf",
+        "Compression Fit",
+        "GS Vintage Rouge Pink",
+      ],
       product_price: 44,
       product_rating: "5",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSLiftGreenMarlB4C6D_EDC4_0336_V1a_640x.jpg?v=1759423247",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSLiftGreenMarlB4C6D_EDC4_0353_V2_640x.jpg?v=1759423247",
-      product_data: ["Vital Tank With Shelf", "Compression Fit", "GS Lift Green/ Marl"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSLiftGreenMarlB4C6D_EDC4_0336_V1a_640x.jpg?v=1759423247",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessTankWithShelfGSLiftGreenMarlB4C6D_EDC4_0353_V2_640x.jpg?v=1759423247",
+      product_data: [
+        "Vital Tank With Shelf",
+        "Compression Fit",
+        "GS Lift Green/ Marl",
+      ],
       product_price: 44,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0NewSportsBraGSRichMaroonMarlB1C5G_NC65_0143_V1a_640x.jpg?v=1759424152",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-B1C5G_NC65_640x.jpg?v=1759424152",
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0NewSportsBraGSRichMaroonMarlB1C5G_NC65_0143_V1a_640x.jpg?v=1759424152",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-B1C5G_NC65_640x.jpg?v=1759424152",
       product_data: ["Vital Crop Top", "Light Support", "Rich Maroon/Marl"],
       product_price: 38,
       product_rating: "3.9",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0CropTopGSRichMaroonMarlB1A3D_NC65_0005_V1a_640x.jpg?v=1759406291",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0CropTopGSRichMaroonMarlB1A3D_NC65_0016_V1a_640x.jpg?v=1759406291",
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0CropTopGSRichMaroonMarlB1A3D_NC65_0005_V1a_640x.jpg?v=1759406291",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0CropTopGSRichMaroonMarlB1A3D_NC65_0016_V1a_640x.jpg?v=1759406291",
       product_data: ["Vital Crop Top", "Compression Fit", "Rich Maroon/Marl"],
       product_price: 38,
       product_rating: "4.5",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0MidiZipUpJacketGSRichMaroonMarlB5A9Q_NC65_1173_V1a_640x.jpg?v=1759423542",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0MidiZipUpJacketGSRichMaroonMarlB5A9Q_NC65_1179_V1a_640x.jpg?v=1759423542",
-      product_data: ["Vital Midi Zip Up Jacket", "Compression Fit", "Rich Maroon/Marl"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0MidiZipUpJacketGSRichMaroonMarlB5A9Q_NC65_1173_V1a_640x.jpg?v=1759423542",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamless2_0MidiZipUpJacketGSRichMaroonMarlB5A9Q_NC65_1179_V1a_640x.jpg?v=1759423542",
+      product_data: [
+        "Vital Midi Zip Up Jacket",
+        "Compression Fit",
+        "Rich Maroon/Marl",
+      ],
       product_price: 56,
       product_rating: "4.8",
     },
     {
-      front_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessSportsBraAWGSRichMaroonMarlB3A4K_NC65_1097_V1a_640x.jpg?v=1759424384",
-      back_img: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-B3A4K_NC65_640x.jpg?v=1759424384",
-      product_data: ["Vital V Neck Sports Bra", "Light Support", "Rich Maroon/Marl"],
+      front_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-VitalSeamlessSportsBraAWGSRichMaroonMarlB3A4K_NC65_1097_V1a_640x.jpg?v=1759424384",
+      back_img:
+        "https://cdn.shopify.com/s/files/1/0156/6146/files/images-B3A4K_NC65_640x.jpg?v=1759424384",
+      product_data: [
+        "Vital V Neck Sports Bra",
+        "Light Support",
+        "Rich Maroon/Marl",
+      ],
       product_price: 38,
       product_rating: "4.8",
     },
@@ -170,7 +268,9 @@ function Women_Section() {
       <div className="flex flex-col gap-10 lg:gap-15 px-5 lg:px-10 mt-19 md:mt-19 lg:mt-0 py-7">
         <div className="flex flex-col gap-2">
           <p className="text-xs font-bold text-gray-800 truncate">WOMENS</p>
-          <h1 className="text-[30px] lg:text-[44px] font-bold truncate">LAST CHANCE TO BUY</h1>
+          <h1 className="text-[30px] lg:text-[44px] font-bold truncate">
+            LAST CHANCE TO BUY
+          </h1>
           <p className="text-md lg:text-xl text-gray-800 leading-snug text-balance max-w-[55rem]">
             The only thing better than finding new workout clothes you love, is
             when they're on sale. Rn you've got the chance to pick up some of
@@ -790,11 +890,16 @@ function Women_Section() {
         </div>
 
         {/* card's*/}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 w-full overflow-hidden">
-
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full overflow-hidden">
           {femalesProducts.map((item) => (
             <Card
               key={item.index}
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setCardData(item);
+                  setCardActive(true);
+                }
+              }}
               className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 "
             >
               {/* Product Image */}
@@ -865,9 +970,18 @@ function Women_Section() {
               </CardContent>
             </Card>
           ))}
-          
         </div>
       </div>
+
+      {/* Overlay */}
+      {cardActive && (
+        <Overlay_Drawer
+          cardActive={cardActive}
+          setCardActive={setCardActive}
+          cardData={cardData}
+          setCardData={setCardData}
+        />
+      )}
     </>
   );
 }

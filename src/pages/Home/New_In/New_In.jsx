@@ -12,12 +12,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../features/Cart/CartSlice";
 import { nanoid } from "@reduxjs/toolkit";
+import Overlay_Drawer from "../../Overlay_Drawer/Overlay_Drawer";
 
 function New_In() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch()
+
+    const [cardActive, setCardActive] = useState(false);
+    const [cardData, setCardData] = useState({});
 
 
   const crouselData = [
@@ -200,7 +204,14 @@ function New_In() {
             {crouselData.map((item, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4 ">
                 <div className="p-1">
-                  <Card className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
+                  <Card 
+                  onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setCardData(item);
+                  setCardActive(true);
+                }
+              }}
+                  className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 ">
                     
                     {/* Product Image */}
                     <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden group">
@@ -278,6 +289,17 @@ function New_In() {
           <CarouselNext ref={nextRef} className="sr-only" />
         </Carousel>
       </div>
+
+
+      {/* Overlay */}
+      {cardActive && (
+        <Overlay_Drawer
+          cardActive={cardActive}
+          setCardActive={setCardActive}
+          cardData={cardData}
+          setCardData={setCardData}
+        />
+      )}
 
     </>
   );

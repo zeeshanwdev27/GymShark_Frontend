@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -19,9 +19,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/Cart/CartSlice";
 import { nanoid } from "@reduxjs/toolkit";
+import Overlay_Drawer from "../Overlay_Drawer/Overlay_Drawer";
 
 function Men_Section() {
   const dispatch = useDispatch();
+    const [cardActive, setCardActive] = useState(false);
+    const [cardData, setCardData] = useState({});
+  
 
   const mensProducts = [
     {
@@ -775,6 +779,12 @@ function Men_Section() {
           {mensProducts.map((item) => (
             <Card
               key={item.index}
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setCardData(item);
+                  setCardActive(true);
+                }
+              }}
               className="overflow-hidden rounded-none shadow-none border-none transition py-0 gap-2 "
             >
               {/* Product Image */}
@@ -847,6 +857,18 @@ function Men_Section() {
           ))}
         </div>
       </div>
+
+
+      {/* Overlay */}
+      {cardActive && (
+        <Overlay_Drawer
+          cardActive={cardActive}
+          setCardActive={setCardActive}
+          cardData={cardData}
+          setCardData={setCardData}
+        />
+      )}
+
     </>
   );
 }
