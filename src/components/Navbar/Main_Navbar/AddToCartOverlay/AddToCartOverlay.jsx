@@ -12,26 +12,55 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import {incQuantity, decQuantity, removeToCart} from '../../../../features/Cart/CartSlice'
+import {
+  incQuantity,
+  decQuantity,
+  removeToCart,
+} from "../../../../features/Cart/CartSlice";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
-
   const items = useSelector((state) => state.carts);
   const [iconActive, setIconActive] = useState(true);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const subTotal = items.reduce((sum, item)=> sum + item.price, 0)
-  const shippingPrice = 5
-  const total = subTotal + shippingPrice
+  const subTotal = items.reduce((sum, item) => sum + item.price, 0);
+  const shippingPrice = 5;
+  const total = subTotal + shippingPrice;
 
   useEffect(() => {
     if (addToCart) {
       setIconActive(true);
     }
   }, [addToCart]);
+
+  const handleCheckout = async () => {
+    try {
+      const response = await axios.post(
+        "https://gymshark-backend-gped.onrender.com/create-checkout-session",
+        {
+          subTotal,
+          shippingPrice,
+          total,
+          items,
+        }
+      );
+
+      // ✅ Check if request was successful
+      if (response.status !== 200) {
+        throw new Error(response.data?.error || "Purchase failed");
+      }
+
+      // ✅ handle successful checkout (e.g., redirect to Stripe)
+      console.log("Checkout session:", response.data.url);
+      window.location.href = response.data.url;
+
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -101,8 +130,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
             {/* AddToCart */}
             {iconActive &&
               (items.length > 0 ? (
-
-               <div className="flex flex-col overflow-y-auto">
+                <div className="flex flex-col overflow-y-auto">
                   <div className="flex flex-col gap-45">
                     {/* ALERT + ITEMS */}
                     <div className="px-7 py-7 flex flex-col gap-5">
@@ -127,30 +155,26 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                             alt={item.title}
                           />
                           <div className="flex flex-col justify-between">
-                            
-                             
-                              <p className="text-[13.1px] truncate">
-                                {item.title}
-                              </p>
-                              <p className="text-[13.1px] truncate opacity-60">
-                                {item.size}
-                              </p>
-                             
-                            
+                            <p className="text-[13.1px] truncate">
+                              {item.title}
+                            </p>
+                            <p className="text-[13.1px] truncate opacity-60">
+                              {item.size}
+                            </p>
+
                             <div className="w-full flex justify-between items-center">
                               <p className="text-[13.1px] font-semibold truncate">
                                 ${item.price}
                               </p>
                               <div className="flex gap-3 items-center">
                                 <Button
-                                  onClick={()=> {
+                                  onClick={() => {
                                     if (item && item.quantity > 1) {
-                                      dispatch(decQuantity(item.id))
-                                    }else{
-                                      dispatch(removeToCart(item.id))
+                                      dispatch(decQuantity(item.id));
+                                    } else {
+                                      dispatch(removeToCart(item.id));
                                     }
-                                  }
-                                  }
+                                  }}
                                   variant="ghost"
                                   size="icon"
                                   className="size-8 cursor-pointer hover:bg-white"
@@ -159,7 +183,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                                 </Button>
                                 <p>{item.quantity}</p>
                                 <Button
-                                  onClick={()=>dispatch(incQuantity(item.id))}
+                                  onClick={() => dispatch(incQuantity(item.id))}
                                   variant="ghost"
                                   size="icon"
                                   className="size-8 cursor-pointer hover:bg-white"
@@ -175,94 +199,97 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
 
                     {/* DISCOUNT + SUMMARY */}
                     <div className="bg-gray-100">
-
                       <div className="px-7 py-7 flex flex-col gap-10 ">
-                      <div className="flex flex-col gap-4">
-                        <h2 className="text-[13.5px] font-bold pb-1">
-                          DISCOUNT CODE
-                        </h2>
-                        <div className="flex items-center gap-2 w-full">
-                          <Input
-                            className="w-full py-6 lg:py-5 lg:px-3 bg-white lg:text-lg"
-                            placeholder="Enter Code"
-                          />
-                          <Button className="lg:w-[25%] py-6 px-5 lg:py-6 lg:px-5 rounded-4xl text-md font-bold cursor-pointer">
-                            APPLY
-                          </Button>
+                        <div className="flex flex-col gap-4">
+                          <h2 className="text-[13.5px] font-bold pb-1">
+                            DISCOUNT CODE
+                          </h2>
+                          <div className="flex items-center gap-2 w-full">
+                            <Input
+                              className="w-full py-6 lg:py-5 lg:px-3 bg-white lg:text-lg"
+                              placeholder="Enter Code"
+                            />
+                            <Button className="lg:w-[25%] py-6 px-5 lg:py-6 lg:px-5 rounded-4xl text-md font-bold cursor-pointer">
+                              APPLY
+                            </Button>
+                          </div>
+                          <div className="flex gap-1.5 items-center">
+                            <CircleAlert
+                              className="w-3.5 h-3.5"
+                              strokeWidth={2}
+                            />
+                            <p className="text-xs opacity-70">
+                              Gift Card codes can be applied at checkout.
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex gap-1.5 items-center">
-                          <CircleAlert
-                            className="w-3.5 h-3.5"
-                            strokeWidth={2}
-                          />
-                          <p className="text-xs opacity-70">
-                            Gift Card codes can be applied at checkout.
-                          </p>
-                        </div>
-                      </div>
 
-                      <div className="flex flex-col gap-4">
-                        <h2 className="text-[13.5px] font-bold pb-1">
-                          ORDER SUMMARY
-                        </h2>
-                        <div className="w-full flex justify-between">
-                          <p className="text-[14px]">Sub Total</p>
-                          <p className="text-[14px]">${subTotal.toFixed(2)}</p>
-                        </div>
-                        <div className="w-full flex justify-between">
-                          <p className="text-[14px]">Estimated Shipping</p>
-                          <p className="text-[14px]">${shippingPrice.toFixed(2)}</p>
-                        </div>
-                        <div className="w-full flex justify-between">
-                          <p className="font-bold text-[14px]">Total</p>
-                          <p className="font-bold text-[14px]">${total.toFixed(2)}</p>
+                        <div className="flex flex-col gap-4">
+                          <h2 className="text-[13.5px] font-bold pb-1">
+                            ORDER SUMMARY
+                          </h2>
+                          <div className="w-full flex justify-between">
+                            <p className="text-[14px]">Sub Total</p>
+                            <p className="text-[14px]">
+                              ${subTotal.toFixed(2)}
+                            </p>
+                          </div>
+                          <div className="w-full flex justify-between">
+                            <p className="text-[14px]">Estimated Shipping</p>
+                            <p className="text-[14px]">
+                              ${shippingPrice.toFixed(2)}
+                            </p>
+                          </div>
+                          <div className="w-full flex justify-between">
+                            <p className="font-bold text-[14px]">Total</p>
+                            <p className="font-bold text-[14px]">
+                              ${total.toFixed(2)}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    </div>
-
                   </div>
 
-                    {/* Checkout */}
-                    <div className="sticky flex flex-col gap-5 bottom-0 w-full shadow-xl z-50 bg-white py-5 px-5">
+                  {/* Checkout */}
+                  <div className="sticky flex flex-col gap-5 bottom-0 w-full shadow-xl z-50 bg-white py-5 px-5">
+                    <Button
+                      onClick={handleCheckout}
+                      className="w-full rounded-2xl py-6 font-bold text-md cursor-pointer"
+                    >
+                      <ShoppingBag />
+                      CHECKOUT SECURELY
+                    </Button>
 
-                        <Button className="w-full rounded-2xl py-6 font-bold text-md cursor-pointer"><ShoppingBag/>CHECKOUT SECURELY</Button>
-
-                        <div className="flex justify-center items-center gap-2">
-            <img
-              className="w-10"
-              src="https://images.ctfassets.net/wl6q2in9o7k3/5PrfyA9tb7E5sX4VJOvUXU/5c7d1da15bcb3ea9bc846698b14da4c0/visa-card.svg"
-              alt="visa_card"
-            />
-            <img
-              className="w-10"
-              src="https://images.ctfassets.net/wl6q2in9o7k3/LwfpWwq8TXIansB91xPmD/d20403df94193ad356b8ea0a2df4e9f1/mastercard-card.svg"
-              alt="mastercard"
-            />
-            <img
-              className="w-10"
-              src="https://images.ctfassets.net/wl6q2in9o7k3/7shmU9DfzLDbUk4b6obKoX/d3dd37478163f60363dc9c982b6fd56e/amex-card.svg"
-              alt="americanexpress"
-            />
-            <img
-              className="w-10"
-              src="https://images.ctfassets.net/wl6q2in9o7k3/30jtAlNtcunM6pu0L8Xar/f528a13df611d9585b73a36fe35b8797/paypal-card.svg"
-              alt="paypal"
-            />
-            <img
-              className="w-10"
-              src="https://images.ctfassets.net/wl6q2in9o7k3/5AUy4FwF2qwCL5Xog760Xf/1839c30ce2dbe6b7119f4dab3f15920b/applepay-card.svg"
-              alt="applepay"
-            />
-</div>
-
+                    <div className="flex justify-center items-center gap-2">
+                      <img
+                        className="w-10"
+                        src="https://images.ctfassets.net/wl6q2in9o7k3/5PrfyA9tb7E5sX4VJOvUXU/5c7d1da15bcb3ea9bc846698b14da4c0/visa-card.svg"
+                        alt="visa_card"
+                      />
+                      <img
+                        className="w-10"
+                        src="https://images.ctfassets.net/wl6q2in9o7k3/LwfpWwq8TXIansB91xPmD/d20403df94193ad356b8ea0a2df4e9f1/mastercard-card.svg"
+                        alt="mastercard"
+                      />
+                      <img
+                        className="w-10"
+                        src="https://images.ctfassets.net/wl6q2in9o7k3/7shmU9DfzLDbUk4b6obKoX/d3dd37478163f60363dc9c982b6fd56e/amex-card.svg"
+                        alt="americanexpress"
+                      />
+                      <img
+                        className="w-10"
+                        src="https://images.ctfassets.net/wl6q2in9o7k3/30jtAlNtcunM6pu0L8Xar/f528a13df611d9585b73a36fe35b8797/paypal-card.svg"
+                        alt="paypal"
+                      />
+                      <img
+                        className="w-10"
+                        src="https://images.ctfassets.net/wl6q2in9o7k3/5AUy4FwF2qwCL5Xog760Xf/1839c30ce2dbe6b7119f4dab3f15920b/applepay-card.svg"
+                        alt="applepay"
+                      />
                     </div>
+                  </div>
                 </div>
-
-               
-
-
               ) : (
                 <div className="min-h-screen flex flex-col justify-center gap-5 items-center w-full pb-30">
                   <img
@@ -280,20 +307,22 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                   </div>
 
                   <div className="flex flex-col gap-2.5 w-full justify-center items-center">
-                    <Button 
-                    onClick={() => {
-                      navigate("/collections/mens")
-                      setAddToCart(false)
-                    }}
-                    className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
+                    <Button
+                      onClick={() => {
+                        navigate("/collections/mens");
+                        setAddToCart(false);
+                      }}
+                      className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl"
+                    >
                       SHOP MENS
                     </Button>
-                    <Button 
+                    <Button
                       onClick={() => {
-                      navigate("/collections/womens")
-                      setAddToCart(false)
-                    }}
-                    className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl">
+                        navigate("/collections/womens");
+                        setAddToCart(false);
+                      }}
+                      className="h-auto w-1/2 py-3 text-sm font-bold cursor-pointer rounded-4xl"
+                    >
                       SHOP WOMENS
                     </Button>
                   </div>

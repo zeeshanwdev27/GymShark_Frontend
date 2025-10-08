@@ -34,12 +34,17 @@ export const cartSlice = createSlice({
       }
     },
     removeToCart: (state, action) => {
-      state.carts = state.carts.filter((cart)=> cart.id !== action.payload)
+      state.carts = state.carts.filter((cart) => cart.id !== action.payload);
       localStorage.setItem("carts", JSON.stringify(state.carts));
-    }
+    },
+    clearCart: (state) => {
+      state.carts = [];
+      localStorage.setItem("carts", JSON.stringify(state.carts));
+    },
   },
 });
 
-export const { incQuantity, decQuantity, addToCart, removeToCart } = cartSlice.actions;
+export const { incQuantity, decQuantity, addToCart, removeToCart, clearCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
