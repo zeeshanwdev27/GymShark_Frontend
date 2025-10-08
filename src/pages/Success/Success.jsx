@@ -6,7 +6,6 @@ import { CircleCheck } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../features/Cart/CartSlice";
 
-
 function Success() {
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -42,9 +41,18 @@ function Success() {
     verifyPayment();
   }, [sessionId, navigate, dispatch]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="flex gap-2">
+        <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce [animation-delay:-0.3s]"></span>
+        <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce [animation-delay:-0.15s]"></span>
+        <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce"></span>
+      </div>
+    </div>
+  );
 
-  if (!valid) return null; // Don't render success content if invalid
+  if (!valid) return null; 
 
   return (
     <div className="min-h-screen flex flex-col gap-10 justify-center items-center">
