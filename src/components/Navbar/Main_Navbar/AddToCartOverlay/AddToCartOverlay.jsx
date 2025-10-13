@@ -7,6 +7,7 @@ import {
   Plus,
   Minus,
   CircleAlert,
+  Loader2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
   const [iconActive, setIconActive] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subTotal = items.reduce((sum, item) => sum + item.price, 0);
   const shippingPrice = 5;
@@ -38,27 +40,22 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
 
   const handleCheckout = async () => {
     try {
+      setIsSubmitting(true);
       const response = await axios.post(
         "https://gymshark-backend-gped.onrender.com/create-checkout-session",
-        {
-          subTotal,
-          shippingPrice,
-          total,
-          items,
-        }
+        { subTotal, shippingPrice, total, items }
       );
 
-      // ✅ Check if request was successful
       if (response.status !== 200) {
         throw new Error(response.data?.error || "Purchase failed");
       }
 
-      // ✅ handle successful checkout (e.g., redirect to Stripe)
-      console.log("Checkout session:", response.data.url);
+      // Redirect (no need to reset isSubmitting)
       window.location.href = response.data.url;
-
     } catch (err) {
       alert(err.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -255,10 +252,10 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                   <div className="sticky flex flex-col gap-5 bottom-0 w-full shadow-xl z-50 bg-white py-5 px-5">
                     <Button
                       onClick={handleCheckout}
-                      className="w-full rounded-2xl py-6 font-bold text-md cursor-pointer"
+                      disable={isSubmitting}
+                      className="w-full rounded-2xl py-6 font-bold text-md cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      <ShoppingBag />
-                      CHECKOUT SECURELY
+                      {isSubmitting ? <><Loader2 className="animate-spin" /> Processing... </> : <><ShoppingBag /> CHECKOUT SECURELY</>}
                     </Button>
 
                     <div className="flex justify-center items-center gap-2">
