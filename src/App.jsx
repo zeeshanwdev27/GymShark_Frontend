@@ -16,7 +16,7 @@ const App = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="collections/mens" element={<Men_Section />} />
         <Route path="collections/womens" element={<Women_Section />} />
-        <Route path="collections/product" element={<Product />} />
+        <Route path="collections/product/:productId" element={<Product />} />
       </Route>
 
       <Route path="success" element={<Success />} />

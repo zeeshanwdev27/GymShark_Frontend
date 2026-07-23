@@ -1,35 +1,21 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { Copyright } from "lucide-react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTiktok,
-  FaYoutube,
-  FaDiscord,
-  FaPinterest,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube, FaDiscord, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { GiWorld } from "react-icons/gi";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 
 function Footer() {
   return (
     <>
       <div className=" lg:py-10 px-5 lg:px-14 w-full border-t border-gray-200 shadow-sm overflow-hidden">
-  {/* First Row */}
+        
+        {/* First Row */}
         <div className="lg:grid lg:grid-cols-2 lg:gap-[58px] overflow-hidden">
+
           {/* Link List's */}
           <div className="hidden lg:grid grid-cols-3 w-full">
             <ul className="flex flex-col gap-2">
@@ -89,6 +75,7 @@ function Footer() {
               </li>
             </ul>
           </div>
+
           {/* SS List */}
           <div className="block lg:hidden">
             <Accordion type="single" collapsible className="w-full text-md font-bold text-black pb-7">
@@ -177,10 +164,10 @@ function Footer() {
           </div>
 
           {/* More About GymShark */}
-          <div className="flex flex-col gap-2 lg:pr-12">
+          <div className="flex flex-col gap-2 g">
             <h1 className="font-bold text-md pb-2">MORE ABOUT GYMSHARK</h1>
-            <div className="hidden lg:flex gap-2">
-              <div className="w-1/2 hover:opacity-80 cursor-pointer">
+            <div className="hidden lg:flex gap-6">
+              <div className="w-fit hover:opacity-80 cursor-pointer">
                 <img
                   className="w-43"
                   src="https://row.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F4QtcnsrjM61MBOfKzadnle%2F71b2f410cc0b750b70fd93a1866e1b5c%2Fblog-footer.jpg&w=1920&q=80"
@@ -191,7 +178,7 @@ function Footer() {
                 </div>
               </div>
 
-              <div className="w-1/2 hover:opacity-80 cursor-pointer">
+              <div className="w-fit hover:opacity-80 cursor-pointer">
                 <img
                   className="w-43"
                   src="https://row.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F3PKQBuoomlHFd10tV2xhCY%2F2de6be180d73c666374009c7a1065be4%2F1_Students.jpg&w=1920&q=80"
@@ -204,7 +191,7 @@ function Footer() {
                 </div>
               </div>
 
-              <div className="w-1/2 hover:opacity-80 cursor-pointer">
+              <div className="w-fit hover:opacity-80 cursor-pointer">
                 <img
                   className="w-43"
                   src="https://row.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F78i6cwhCg8cVO59Dvlk7Gy%2F0f941cc6bb840d0556fca0913b884674%2FNewsletter.jpg&w=1920&q=80"

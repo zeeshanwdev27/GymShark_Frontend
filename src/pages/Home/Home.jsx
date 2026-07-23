@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeroSection from './HeroSection/HeroSection.jsx'
 import New_In from './New_In/New_In.jsx'
 import Popular_RightNow from './Popular_RightNow/Popular_RightNow.jsx'
@@ -8,6 +8,12 @@ import Wait_Theres_More from './Wait_Theres_More/Wait_Theres_More.jsx'
 import Detail_Section from './Detail_Section/Detail_Section.jsx'
 
 function Home() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   return (
     <>
     <HeroSection/>

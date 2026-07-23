@@ -2,151 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Heart, Share, RulerDimensionLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { FaPaypal } from "react-icons/fa";
 import { FaStripe } from "react-icons/fa";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,} from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import { Label } from "@/components/ui/label";
 
 import ZoomIn from "./ZoomIn/ZoomIn";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleProduct } from "@/features/product/productSlice";
+import { addToCart } from "@/features/Cart/CartSlice";
+import { nanoid } from "@reduxjs/toolkit";
+import { toast } from 'sonner';
+import { fetchProducts } from "@/features/product/productSlice";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { Separator } from "@/components/ui/separator";
 
 function Product() {
-  const crouselData = [
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-TrainingStraightLegLeggingGSBlackB4B7Y_BB2J_3792_V1b_640x.jpg?v=1756280501",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-TrainingStraightLegLeggingGSBlackB4B7Y_BB2J_3794_V1b_640x.jpg?v=1756280501",
-      product_data: ["Training Straight Leg Leggings", "Regular", "Black"],
-      product_price: "US$14",
-      product_rating: "★3.5",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsGSBlackA4B8B_BB2J_0515_V1_ba0d1f4a-a076-4334-ba96-1aaa3c47088d_640x.jpg?v=1757337204",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsGSBlackA4B8B_BB2J_0521_V1_9635a758-4192-4060-9481-ed2cb8103d40_640x.jpg?v=1757337205",
-      product_data: ["Straight Leg Pumper Pants", "Oversized Fit", "Black"],
-      product_price: "US$75",
-      product_rating: "★5",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-CrestStraightLegJoggerGSArchiveBrownA5A1O_NBY8_1794_640x.jpg?v=1754643063",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-CrestStraightLegJoggerGSArchiveBrownA5A1O_NBY8_1796_640x.jpg?v=1754643063",
-      product_data: ["Crest Straight Leg Joggers", "Regular", "Brown"],
-      product_price: "US$55",
-      product_rating: "★4.3",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-TrainingStraightLegLeggingGSCherryPurpleB4B7Y_PCDS_3787_V3_640x.jpg?v=1756280422",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-TrainingStraightLegLeggingGSCherryPurpleB4B7Y_PCDS_3789_V3_640x.jpg?v=1756280422",
-      product_data: [
-        "Training Straight Leg Leggings",
-        "Regular",
-        "Cherry Purple",
-      ],
-      product_price: "US$45",
-      product_rating: "★3.5",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-EverydayWovenStraightLegJoggerGSBlackB4C1F_BB2J_0625_V1b_640x.jpg?v=1756241602",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-EverydayWovenStraightLegJoggerGSBlackB4C1F_BB2J_0641_V1b_640x.jpg?v=1756241602",
-      product_data: ["Everyday Woven Straight Leg Joggers", "Regular", "Black"],
-      product_price: "US$50",
-      product_rating: "★3.9",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-Gym_KitTwist_front_StraightLegLeggingGSIronBlueB5B9O_UCTM_0583_V1b_640x.jpg?v=1755078230",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-Gym_KitTwist_front_StraightLegLeggingGSIronBlueB5B9O_UCTM_0588_V1b_640x.jpg?v=1755078230",
-      product_data: [
-        "Twist Front Straight Leg Leggings",
-        "body fit",
-        "Iron Blue",
-      ],
-      product_price: "US$65",
-      product_rating: "★4.1",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsRep_U_A0026GsSpicedBrownA4B8B_NC86_4379_V1_f3d97dad-d650-4484-bd70-9ceccd72c536_640x.jpg?v=1757337215",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-StraightLegPumperPantsRep_U_A0026GsSpicedBrownA4B8B_NC86_4382_V1_37066363-36fa-4b0a-9564-42eb1b5de8dd_640x.jpg?v=1757337215",
-      product_data: [
-        "Straight Leg Pumper Pants",
-        "oversized fit",
-        "Spiced Brown",
-      ],
-      product_price: "US$75",
-      product_rating: "★5",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/GFXRestDay1StraightLegPantGSBlackA1C9G-BB2J-0499-0081_289befd8-3c4c-4ca3-b16d-17c46e93cb99_1920x.jpg?v=1746089232",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/GFXRestDay1StraightLegPantGSBlackA1C9G-BB2J-0502-0082_fb7717a1-317b-4686-8d39-c41e4519108e_1920x.jpg?v=1746089232",
-      product_data: [
-        "Lifting Essentials Straight Leg Pants",
-        "Regular Fit",
-        "Black",
-      ],
-      product_price: "US$75",
-      product_rating: "★4.7",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/WristStrapsBlackI1A3Y-BBBB1199_640x.jpg?v=1722505039",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/WristStrapsBlackI1A3Y-BBBB.1020.143_640x.jpg?v=1722505039",
-      product_data: ["Wrist Straps", "Double Pair", "Black"],
-      product_price: "US$28",
-      product_rating: "★4.5",
-    },
-    {
-      front_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-GFXGlobalLiftingOversizedPantGSDeepPetrolBlueA5A8K_UDRL_0413_640x.jpg?v=1756730483",
-      back_img:
-        "https://cdn.shopify.com/s/files/1/1367/5207/files/images-GFXGlobalLiftingOversizedPantGSDeepPetrolBlueA5A8K_UDRL_0416_640x.jpg?v=1756730483",
-      product_data: [
-        "Global Lifting Oversized Joggers",
-        "Oversized Fsit",
-        "Deep Petrol Blue",
-      ],
-      product_price: "US$70",
-      product_rating: "★5",
-    },
-  ];
 
-  const images = [
-    {
-      front:
-        "https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_1920x.jpg?v=1726043266",
-      back: "https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0182_b9e41ef3-ad0c-4449-982a-1ec9041a9a6e_1920x.jpg?v=1726043266",
-      full: "https://cdn.shopify.com/s/files/1/0156/6146/files/VarsityJerseyGSBlackA1B5H-BB2Jmike0180_6066a92a-1727-45d2-a811-4ed9a01963da_1920x.jpg?v=1726043266",
-    },
-  ];
+  const {productId} = useParams() 
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const { product, loading, error, products} = useSelector(state => state.product);
+  
 
   const slides = [
     {
@@ -165,6 +46,38 @@ function Product() {
 
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState();
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
+
+
+   useEffect(() => {
+    dispatch( fetchSingleProduct({productId}) );
+  }, [productId]);
+
+
+useEffect(() => {
+  if (!product?.gender || !product?.category) return;
+
+  dispatch(
+    fetchProducts({
+      page: 1,
+      limit: 5,
+      gender: product.gender,
+      category: product.category,
+    })
+  );
+}, [product.gender, product.category, dispatch]);
+
+
+useEffect(() => {
+  console.log(products);
+}, [products]);
+
 
   useEffect(() => {
     if (!api) {
@@ -176,42 +89,80 @@ function Product() {
     });
   }, [api]);
 
+
+  
+  
+
   return (
     <>
-      <div className="pb-20 w-full flex">
-        {/* Colum 1 */}
-        <div className="w-1/2 sticky top-20 self-start">
+    {
+      loading ? (
+            <div className="flex items-center justify-center py-70 w-full">
+              <div className="flex gap-2">
+                <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-3 h-3 rounded-full bg-gray-800 animate-bounce"></span>
+              </div>
+            </div>
+      )
+      : (
+      <>
+
+      {/* Product */}
+      <div className="pt-10 pb-15 lg:pt-0 w-full flex flex-col lg:flex-row">
+
+
+        {/* Mobile */}
+        <div className="lg:hidden">
+          <Carousel className="w-full overflow-hidden">
+            <CarouselContent>
+              {product?.images?.map((image, index) => (
+                <CarouselItem key={index} className="basis-1/1">
+                  <Card className="overflow-hidden rounded-none shadow-none border-none transition">
+                    <CardContent className="px-0">
+                      <img src={image.url} alt="img_front" className="h-full" />
+                      </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+
+        {/* Colum 1 - Images */}
+        <div className="hidden lg:block w-1/2 sticky top-20 self-start">
           <ScrollArea className="h-[80vh] w-full ">
             <div className="grid grid-cols-2 gap-1">
-              {images.map((image, index) => (
+              {product?.images?.map((image, index) => (
                 <React.Fragment key={index}>
-                  <ZoomIn src={image.front} alt="img_front" />
-                  <ZoomIn src={image.back} alt="img_back" />
+                  <ZoomIn src={image.url} alt="img_front" className={`${index === 2 ? "col-span-2" : 'col-span-1'}`} />
+                  {/* <ZoomIn src={image.back} alt="img_back" />
                   <ZoomIn
                     src={image.full}
                     alt="img_full"
                     className="col-span-2"
-                  />
+                  /> */}
                 </React.Fragment>
               ))}
             </div>
           </ScrollArea>
         </div>
 
-        {/* Colum 2 */}
-        <div className="w-1/2 flex flex-col gap-8 items-center max-h-full py-15">
+        {/* Colum 2 - Content */}
+        <div className="w-full lg:w-1/2 flex flex-col gap-8 items-center max-h-full py-5 lg:py-15">
+
           {/* Info */}
           <div className="flex flex-col items-center gap-1.5">
             <p className="text-xs font-bold p-1 px-2 bg-gray-100 rounded-2xl mb-3">
               50% OFF | SAVE $29
             </p>
             <h2 className="text-xl font-mono font-bold truncate">
-              SPORTS JERSEY
+              {product?.productName}
             </h2>
             <p className="text-sm text-gray-700 font-[15px] opacity-80">
-              Oversized Fit
+              {product?.tags[0]}
             </p>
-            <p className="text-sm font-bold">$29</p>
+            <p className="text-sm font-bold">${product?.price}</p>
           </div>
 
           {/* Icons */}
@@ -230,7 +181,7 @@ function Product() {
           </div>
 
           {/*Offer*/}
-          <div className="w-100 bg-gray-100 rounded-md px-11 py-4 flex justify-center items-center mt-3">
+          <div className="lg:w-100 bg-gray-100 rounded-md px-11 py-4 flex justify-center items-center mt-3">
             <div className="flex flex-col justify-center items-center gap-1.5 text-center">
               <h2 className="text-[15.5px] font-bold">
                 UP TO 50% OFF LAST CHANCE LOOKS 💨
@@ -246,14 +197,35 @@ function Product() {
           </div>
 
           {/* small Img */}
-          <div className="w-100 flex flex-col gap-2 justify-center items-center">
+          {/* <div className="w-100 flex flex-col gap-2 justify-center items-center">
             <img
               className="w-13 h-15 border-2 border-black object-bottom"
               src="https://cdn.shopify.com/s/files/1/0156/6146/files/Varsity_Jersey_GS_Black_A1B5H-BB2J_066_1920x.jpg?v=1726043266"
               alt="img"
             />
             <p className="text-[13px] opacity-70">Black</p>
+          </div> */}
+
+          <div className="w-full max-w-sm flex flex-wrap justify-center gap-4">
+            {
+              product?.colors?.map((color, index)=>{
+                const isselectedColor = selectedColor === color
+                return (
+                <div className="flex justify-center items-center flex-col gap-3 mb-8" key={index}>
+                  <div className="rounded-full w-12 h-12 border hover:scale-90 transition-transform cursor-pointer" style={{backgroundColor: color.toLowerCase()}} onClick={()=> setSelectedColor(color)}></div>
+                  <Label htmlFor="Grey" className={`font-normal text-[14px] truncate cursor-pointer ${isselectedColor ? "font-bold" : ""} `}>{color}</Label>
+                  </div>
+                )
+              }
+            )}
           </div>
+          
+
+
+
+
+
+        
 
           {/* CTA Div */}
           <div className="w-100 flex flex-col justify-center items-center gap-5">
@@ -270,22 +242,38 @@ function Product() {
               </div>
 
               <div className="border-2 gap-1 rounded-md border-gray-100 px-3 py-5 flex items-center justify-center">
-                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                  <Button
-                    key={size}
-                    variant="ghost"
-                    className="min-w-[50px] h-12 text-xs hover:bg-black cursor-pointer 
-                 text-black hover:text-white rounded-xs"
-                  >
+                {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size, index) => {
+                  const isAvailable = product.sizes.includes(size);
+                  const isSelected = selectedSize === size
+                  return (
+                  <Button disabled={!isAvailable} key={index} onClick={()=> setSelectedSize(size)} variant="ghost" className={`min-w-[50px] h-12 text-xs rounded-xs ${isAvailable ? "hover:bg-black cursor-pointer text-black hover:text-white" : "text-stone-400"} ${isSelected ? "bg-black text-white": ""}`}>
                     {size}
                   </Button>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
             {/* Add To Bad BTN */}
             <div className="w-100">
-              <Button className="w-full text-sm  cursor-pointer rounded-full py-7">
+              <Button className="w-full text-sm  cursor-pointer rounded-full py-7" 
+              onClick={() =>{
+                if(!selectedColor) return toast.error("Please Select Any Color!")
+                if(!selectedSize) return toast.error("Please Select Any Size!")
+                dispatch(
+                  addToCart({
+                    id: nanoid(),
+                    productId: product.productId,
+                    image: product.images[0].url,
+                    title: product.productName,
+                    size: selectedSize,
+                    color: selectedColor,
+                    price: product.price,
+                    unitPrice: product.price,
+                    quantity: 1,
+                  })
+                )
+                }}>
                 ADD TO BAG
               </Button>
             </div>
@@ -374,52 +362,14 @@ function Product() {
                       DESCRIPTION
                     </SheetTitle>
                     <SheetDescription>
-                      <div className="flex flex-col gap-7 mt-5 text-black">
+                      <div className="flex flex-col gap-7 mt-5 text-black w-full max-w-lg">
+                        
                         <div className="flex flex-col gap-3">
-                          <p className="text-lg font-semibold">PHYSIQUE FIRST</p>
-                          <p className="text-md">
-                            Whether you’re layering up or down, these
-                            physique-enhancing fits are the one.{" "}
-                          </p> 
+                          <p className="text-md">{product?.description}</p> 
                         </div>
 
-                        <ul className="list-disc pl-6 text-md">
-                          <li>Ultra-tight compression fit top</li>
-                          <li>
-                            Enhance your physique with muscle-shaping seams
-                          </li>
-                          <li>
-                            Sweat-wicking tech to keep you cool & dry when
-                            working out
-                          </li>
-                          <li>Flatlock seams for reduced irritation</li>
-                          <li>
-                            Additional mesh panels to the seams for extra
-                            stretch
-                          </li>
-                        </ul>
+                        <p>SKU: {product?.productId}</p>
 
-                        <div className="flex flex-col gap-3">
-                          <p className="text-lg font-semibold">SIZE & FIT</p>
-                          <ul className="list-disc pl-6 text-md">
-                            <li>
-                              Compression fit: ultra-tight fit, like a second
-                              skin
-                            </li>
-                            <li>Regular length</li>
-                            <li>Model is 5'11" and wears size M</li>
-                          </ul>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                          <p className="text-lg font-semibold">MATERIALS & CARE</p>
-                          <ul className="list-disc pl-6 text-md">
-                            <li>Main: 84% Polyester, 16% Elastane</li>
-                            <li>Mesh: 93% Polyester, 7% Elastane</li>
-                          </ul>
-                        </div>
-
-                        <p>SKU: A2B4C-RB2R</p>
                       </div>
                     </SheetDescription>
                   </SheetHeader>
@@ -479,64 +429,81 @@ function Product() {
               </Sheet>
             </div>
           </div>
+
+
         </div>
+
+
       </div>
 
+
       {/* You Might Also Like */}
-      <div className="w-full px-20 flex flex-col gap-8 mb-20">
+      <div className="w-full px-5 lg:px-15 flex flex-col gap-8 mb-20">
         <div className="flex flex-col gap-1.5">
           <h1 className="text-[22px] font-bold truncate">YOU MIGHT LIKE</h1>
           <p className="text-sm">We think these products pair perfectly.</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
-          {crouselData.map((item, index) => (
-            <Card
-              key={index}
-              className="overflow-hidden rounded-none shadow-none border-none transition flex flex-col gap-2 py-0 mb-5"
-            >
+          {products?.map((item, index) => (
+            <Card key={index} className="overflow-hidden rounded-none shadow-none border-none transition flex flex-col gap-2 py-0 mb-5">
               {/* Product Image */}
               <div className="relative w-full aspect-[4/5] overflow-hidden group">
-                <img
-                  src={item.front_img}
-                  alt={item.product_data[0]}
-                  className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"
-                />
-                <img
-                  src={item.back_img}
-                  alt={`${item.product_data[0]} back`}
-                  className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0"
-                />
+                <img src={item?.image[0]} alt={`${item.productName}_front`} className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0"/>
+                <img src={item?.image[1]} alt={`${item.productName}back`} className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0" onClick={()=> navigate(`/collections/product/${item.productId}`)}/>
 
                 {/* Size Button Overlay */}
                 <div className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3 grid-cols-4 gap-2 opacity-0 group-hover:opacity-100 transition duration-300">
-                  {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
-                    <button
-                      key={size}
-                      className="cursor-pointer py-2 text-sm border border-gray-300 rounded bg-white hover:bg-black hover:text-white transition"
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => {
+                    const isAvailable = item.sizes.includes(size);
+                    return (
+                      <button
+                        key={size}
+                        disabled={!isAvailable}
+                        onClick={() => {
+                          dispatch(
+                            addToCart({
+                              id: nanoid(),
+                              productId: item.productId,
+                              image: item.image[0],
+                              title: item.productName,
+                              size: size,
+                              color: item.color,
+                              price: item.price,
+                              unitPrice: item.price,
+                              quantity: 1,
+                            }),
+                          );
+                        }}
+                        className={`px-0 py-2 text-sm border rounded transition ${isAvailable ? "cursor-pointer border-gray-300 bg-white hover:bg-black hover:text-white" : "cursor-not-allowed border-gray-200 bg-gray-200 text-gray-400"} `}
+                      >
+                        {size}
+                      </button>
+                    );}
+                  )}
                 </div>
               </div>
 
               {/* Product Info */}
               <CardContent className="flex flex-col gap-1 px-1">
                 <h2 className="text-base lg:text-sm font-semibold truncate">
-                  {item.product_data[0]}
+                  {item?.productName}
                 </h2>
                 {/* <p className="text-sm text-gray-500">
                     {item.product_data[1]}
                   </p> */}
-                <p className="text-sm text-gray-500">{item.product_data[2]}</p>
+                <p className="text-sm text-gray-500">{item?.category}</p>
                 {/* Price */}
-                <p className="text-sm font-bold">{item.product_price}</p>
+                <p className="text-sm font-bold">${item?.price}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
+
+     </>
+      )
+    }
     </>
   );
 }

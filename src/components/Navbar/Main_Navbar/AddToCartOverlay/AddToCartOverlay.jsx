@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  X,
-  ShoppingBag,
-  Heart,
-  TriangleAlert,
-  Plus,
-  Minus,
-  CircleAlert,
-  Loader2
-} from "lucide-react";
+import { X, ShoppingBag, Heart, TriangleAlert, Plus, Minus, CircleAlert, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  incQuantity,
-  decQuantity,
-  removeToCart,
-} from "../../../../features/Cart/CartSlice";
+import { incQuantity, decQuantity, removeToCart } from "@/features/Cart/CartSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
-  const items = useSelector((state) => state.carts);
+
+  const items = useSelector((state) => state.carts.items);
   const [iconActive, setIconActive] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -134,10 +122,7 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                       <div className="bg-gray-100 p-3 px-4 flex gap-2 justify-center">
                         <TriangleAlert className="w-6 h-5" />
                         <p className="text-[14px]">
-                          <span className="font-bold">
-                            Your items aren’t reserved
-                          </span>
-                          , checkout quickly to make sure you don’t miss out.
+                          <span className="font-bold">Your items aren’t reserved</span>, checkout quickly to make sure you don’t miss out.
                         </p>
                       </div>
 
@@ -152,13 +137,14 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                             alt={item.title}
                           />
                           <div className="flex flex-col justify-between">
-                            <p className="text-[13.1px] truncate">
-                              {item.title}
-                            </p>
-                            <p className="text-[13.1px] truncate opacity-60">
-                              {item.size}
-                            </p>
 
+                            <p className="text-[13.1px] truncate">{item.title}</p>
+
+                            <div className="flex items-center gap-2">
+                              <p className="text-[13.1px] truncate opacity-60">{item.size}</p>
+                              <p className="text-[13.1px] truncate opacity-60">{item.color}</p>
+                            </div>
+   
                             <div className="w-full flex justify-between items-center">
                               <p className="text-[13.1px] font-semibold truncate">
                                 ${item.price}

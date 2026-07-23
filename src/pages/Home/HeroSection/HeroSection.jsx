@@ -5,26 +5,17 @@ import { Link } from "react-router-dom";
 function HeroSection() {
   return (
     <div className="relative flex md:items-center items-end  lg:h-[80vh] h-[90vh] md:h-[50vh] mt-19 md:mt-19 lg:mt-0">
+
+      {/* Bg_Image */}
       <picture className="absolute inset-0">
         {/* Large screen (md and up) */}
-        <source srcSet="https://res.cloudinary.com/dzhovcqy3/image/upload/v1759396526/heroSection_okv7bw.avif" media="(min-width: 768px)" />
+        <source srcSet="/HomePage/HeroSection/bg_desktop.avif" media="(min-width: 768px)" />
         {/* Default (small screens) */}
-        <img
-          src="https://res.cloudinary.com/dzhovcqy3/image/upload/v1759396534/heroSectionMob_jign4n.avif"
-          alt="HeroSection_Mobile"
-          className="w-full h-full object-cover"
-        />
+        <img src="/HomePage/HeroSection/bg_mobile.avif" alt="HeroSection_Mobile" className="w-full h-full object-cover"/>
       </picture>
 
       {/* Background Overlay */}
-      {/* <div className="absolute inset-y-0 left-0 md:w-2/5 bg-gradient-to-r from-black/65 to-transparent"></div> */}
-      <div
-        className="
-        absolute 
-        bg-gradient-to-t from-black/65 to-transparent 
-        inset-x-0 bottom-0 h-2/5   /* default: small screens, bottom overlay */
-        md:inset-y-0 md:left-0 md:w-2/5 md:h-full md:bg-gradient-to-r"
-      ></div>
+      <div className="absolute bg-gradient-to-t from-black/65 to-transparent inset-x-0 bottom-0 h-2/5   /* default: small screens, bottom overlay */ md:inset-y-0 md:left-0 md:w-2/5 md:h-full md:bg-gradient-to-r"></div>
 
       {/* Content */}
       <div className="relative z-10">

@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {
-  Heart,
-  ShoppingBag,
-  User,
-  Search,
-  Menu as MenuIcon,
-} from "lucide-react";
+import { Heart, ShoppingBag, User, Search, Menu as MenuIcon,} from "lucide-react";
 import Menu from "./Menu/Menu";
 import { motion } from "motion/react";
 import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
 import HamburgerOverlay from "./HamburgerOverlay/HamburgerOverlay";
 import AddToCartOverlay from "./AddToCartOverlay/AddToCartOverlay";
 import { Link } from "react-router-dom";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip";
 import { useSelector } from "react-redux";
 
 function Main_Navbar({ isScrolled }) {
   const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [addToCart, setAddToCart] = useState(false);
-  const items = useSelector((state) => state.carts);
+  const items = useSelector((state) => state.carts.items);
 
   // Scroll Hide
   useEffect(() => {
