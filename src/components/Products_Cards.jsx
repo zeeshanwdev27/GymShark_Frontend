@@ -51,8 +51,16 @@ function Products_Cards({ category, gender, page, setPage, setCardData, setCardA
               {/* Product Image */}
               <div className="relative w-full aspect-[3/3.7] overflow-hidden group">
 
-                <img src={item.image[0]} alt={`${item.productName}_front`} className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0" onClick={()=> navigate(`/collections/product/${item.productId}`)}/>
-                <img src={item.image[1]} alt={`${item.productName}_back`} className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0" onClick={()=> navigate(`/collections/product/${item.productId}`)}/>
+              {/* Front */}
+                <img src={item.image[0]} alt={`${item.productName}_front`} 
+                className="w-full h-full object-cover group-hover:opacity-0 transition duration-500 absolute top-0 left-0" 
+                onClick={()=> navigate(`/collections/product/${item.productId}`)}
+                />
+                {/* Back */}
+                <img src={item.image[1]} alt={`${item.productName}_back`} 
+                className="hidden lg:block w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 absolute top-0 left-0" 
+                onClick={()=> navigate(`/collections/product/${item.productId}`)}
+                />
 
                 {/* Size Button Overlay */}
                 <div className="hidden lg:grid absolute bottom-0 left-0 w-full bg-gray-50 p-3  grid-cols-4 gap-2 opacity-0 group-hover:opacity-100 transition duration-400">

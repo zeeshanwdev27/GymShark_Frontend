@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Heart, ShoppingBag, User, Search, Menu as MenuIcon,} from "lucide-react";
 import Menu from "./Menu/Menu";
 import { motion } from "motion/react";
 import SearchBoxOverlay from "./SearchBoxOverlay/SearchBoxOverlay";
 import HamburgerOverlay from "./HamburgerOverlay/HamburgerOverlay";
 import AddToCartOverlay from "./AddToCartOverlay/AddToCartOverlay";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip";
 import { useSelector } from "react-redux";
 
 function Main_Navbar({ isScrolled }) {
+
+  const { user } = useSelector((state) => state.user)
+  const navigate = useNavigate()
+
+
   const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [addToCart, setAddToCart] = useState(false);
   const items = useSelector((state) => state.carts.items);
+  const closeTimerRef = useRef(null)
 
   // Scroll Hide
   useEffect(() => {
@@ -63,6 +69,38 @@ function Main_Navbar({ isScrolled }) {
     clearTimeout(closeTimer);
   };
   }, []);
+
+
+
+
+  // User Icon Click Handler
+const handleUserClick = () => {
+  if (!user) {
+    navigate('/login')
+    return
+  }
+
+  // cancel any pending auto-close from a previous click
+  if (closeTimerRef.current) {
+    clearTimeout(closeTimerRef.current)
+  }
+
+  setTooltipOpen(true)
+
+  closeTimerRef.current = setTimeout(() => {
+    setTooltipOpen(false)
+    closeTimerRef.current = null
+  }, 2500)
+}
+
+// cleanup on unmount
+useEffect(() => {
+  return () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current)
+  }
+}, [])
+
+
 
   return (
     <div className="bg-white shadow w-full">
@@ -115,34 +153,22 @@ function Main_Navbar({ isScrolled }) {
 
           {/* User Icons */}
           <li className="cursor-pointer">
-            <Tooltip
-              open={addToCart ? false : tooltipOpen}
-              onOpenChange={() => {}} // prevent reopening on hover
-            >
+            <Tooltip open={addToCart ? false : tooltipOpen} onOpenChange={() => {}} >
               <TooltipTrigger asChild>
-                <User
-                  className="w-5 h-6 cursor-pointer transform transition duration-300 lg:hover:-translate-y-1"
-                  strokeWidth={1.5}
-                />
+                <User onClick={handleUserClick} className="w-5 h-6 cursor-pointer transform transition duration-300 lg:hover:-translate-y-1" strokeWidth={1.5}/>
               </TooltipTrigger>
 
-              <TooltipContent
-                side="bottom"
-                align="end"
-                alignOffset={-15}
-                sideOffset={-5}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                >
-                  <p className="text-sm">
-                    Sign in to get exclusive rewards & benefits <br />
-                    New Customer?{" "}
-                    <span className="underline font-bold">Create account</span>
-                  </p>
+              <TooltipContent side="bottom" align="end" alignOffset={-15} sideOffset={-5}>
+                <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.2, ease: "easeOut" }}>
+                  {
+                    user ? <p className="text-sm">Hi, <span className="text-bold">{user?.username}</span> </p> 
+                    :
+                    <p className="text-sm">
+                      Sign in to get exclusive rewards & benefits <br />
+                      New Customer?{" "}
+                      <span className="underline font-bold">Create account</span>
+                    </p>
+                  }
                 </motion.div>
               </TooltipContent>
             </Tooltip>

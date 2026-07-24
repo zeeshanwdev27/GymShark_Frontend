@@ -247,27 +247,27 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                     <div className="flex justify-center items-center gap-2">
                       <img
                         className="w-10"
-                        src="https://images.ctfassets.net/wl6q2in9o7k3/5PrfyA9tb7E5sX4VJOvUXU/5c7d1da15bcb3ea9bc846698b14da4c0/visa-card.svg"
+                        src="/Cards/visa-card.svg"
                         alt="visa_card"
                       />
                       <img
                         className="w-10"
-                        src="https://images.ctfassets.net/wl6q2in9o7k3/LwfpWwq8TXIansB91xPmD/d20403df94193ad356b8ea0a2df4e9f1/mastercard-card.svg"
+                        src="/Cards/mastercard-card.svg"
                         alt="mastercard"
                       />
                       <img
                         className="w-10"
-                        src="https://images.ctfassets.net/wl6q2in9o7k3/7shmU9DfzLDbUk4b6obKoX/d3dd37478163f60363dc9c982b6fd56e/amex-card.svg"
+                        src="/Cards/amex-card.svg"
                         alt="americanexpress"
                       />
                       <img
                         className="w-10"
-                        src="https://images.ctfassets.net/wl6q2in9o7k3/30jtAlNtcunM6pu0L8Xar/f528a13df611d9585b73a36fe35b8797/paypal-card.svg"
+                        src="/Cards/paypal-card.svg"
                         alt="paypal"
                       />
                       <img
                         className="w-10"
-                        src="https://images.ctfassets.net/wl6q2in9o7k3/5AUy4FwF2qwCL5Xog760Xf/1839c30ce2dbe6b7119f4dab3f15920b/applepay-card.svg"
+                        src="/Cards/applepay-card.svg"
                         alt="applepay"
                       />
                     </div>
