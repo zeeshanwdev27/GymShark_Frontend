@@ -74,10 +74,6 @@ useEffect(() => {
 }, [product.gender, product.category, dispatch]);
 
 
-useEffect(() => {
-  console.log(products);
-}, [products]);
-
 
   useEffect(() => {
     if (!api) {
@@ -263,7 +259,7 @@ useEffect(() => {
                 dispatch(
                   addToCart({
                     id: nanoid(),
-                    productId: product.productId,
+                    productId: product._id,
                     image: product.images[0].url,
                     title: product.productName,
                     size: selectedSize,

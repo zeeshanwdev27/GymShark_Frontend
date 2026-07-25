@@ -12,6 +12,7 @@ const Success = React.lazy(() => import('./pages/Success/Success.jsx'))
 const Cancel = React.lazy(() => import('./pages/Cancel/Cancel.jsx'))
 const Auth = React.lazy(() => import('./components/Auth.jsx'))
 const GuestRoute = React.lazy(() => import('./components/GuestRoute.jsx'))
+const Checkout = React.lazy(() => import('./components/Checkout.jsx'))
 
 const App = () => {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="collections/mens" element={<Men_Section />} />
             <Route path="collections/womens" element={<Women_Section />} />
             <Route path="collections/product/:productId" element={<Product />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
 
           <Route path="success" element={<Success />} />

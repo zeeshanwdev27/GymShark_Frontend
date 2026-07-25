@@ -72,7 +72,7 @@ function Products_Cards({ category, gender, page, setPage, setCardData, setCardA
                          dispatch(
                            addToCart({
                              id: nanoid(),
-                             productId: item.productId,
+                             productId: item._id,
                              image: item.image[0],
                              title: item.productName,
                              size: size,

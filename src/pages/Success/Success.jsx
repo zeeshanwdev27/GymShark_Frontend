@@ -14,6 +14,7 @@ function Success() {
   const dispatch = useDispatch();
 
   const sessionId = searchParams.get("session_id");
+  const baseURL= import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const verifyPayment = async () => {
@@ -23,7 +24,7 @@ function Success() {
           return;
         }
 
-        const res = await axios.get(`https://gymshark-backend-gped.onrender.com/verify-session/${sessionId}`);
+        const res = await axios.get(`${baseURL}/order/verify-session/${sessionId}`, { withCredentials: true });
         if (res.data.success) {
           setValid(true);
           dispatch(clearCart());

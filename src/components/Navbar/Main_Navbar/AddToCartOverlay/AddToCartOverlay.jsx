@@ -7,10 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { incQuantity, decQuantity, removeToCart } from "@/features/Cart/CartSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "sonner";
 
 function AddToCartOverlay({ addToCart, setAddToCart }) {
 
+  const { user } = useSelector((state) => state.user)
   const items = useSelector((state) => state.carts.items);
+
   const [iconActive, setIconActive] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,19 +30,22 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
   }, [addToCart]);
 
   const handleCheckout = async () => {
-    try {
-      setIsSubmitting(true);
-      const response = await axios.post(
-        "https://gymshark-backend-gped.onrender.com/create-checkout-session",
-        { subTotal, shippingPrice, total, items }
-      );
 
-      if (response.status !== 200) {
-        throw new Error(response.data?.error || "Purchase failed");
+    if(!user) {
+      toast.error('Please Login First')
+      return navigate('/login')
+    }
+
+    try {
+
+      setIsSubmitting(true);
+
+      if(items) {
+        setAddToCart(false)
+        setIsSubmitting(false);
+        return navigate('/checkout')
       }
 
-      // Redirect (no need to reset isSubmitting)
-      window.location.href = response.data.url;
     } catch (err) {
       alert(err.message);
     } finally {
@@ -230,6 +236,8 @@ function AddToCartOverlay({ addToCart, setAddToCart }) {
                             </p>
                           </div>
                         </div>
+
+                        
                       </div>
                     </div>
                   </div>
