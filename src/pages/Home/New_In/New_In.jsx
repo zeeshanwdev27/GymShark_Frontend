@@ -9,7 +9,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import Overlay_Drawer from "../../Overlay_Drawer/Overlay_Drawer";
 
 import { useSelector } from "react-redux";
-import { fetchProducts } from "@/features/product/productSlice";
+import { fetchProducts } from "@/features/Product/productSlice";
 
 
 

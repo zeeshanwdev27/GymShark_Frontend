@@ -14,11 +14,11 @@ import { Label } from "@/components/ui/label";
 import ZoomIn from "./ZoomIn/ZoomIn";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleProduct } from "@/features/product/productSlice";
+import { fetchSingleProduct } from "@/features/Product/productSlice";
 import { addToCart } from "@/features/Cart/CartSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { toast } from 'sonner';
-import { fetchProducts } from "@/features/product/productSlice";
+import { fetchProducts } from "@/features/Product/productSlice";
 
 
 function Product() {

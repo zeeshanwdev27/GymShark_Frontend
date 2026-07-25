@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector  } from "react-redux";
-import { fetchProducts } from "@/features/product/productSlice";
+import { fetchProducts } from "@/features/Product/productSlice";
 import { addToCart } from "@/features/Cart/CartSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { Card, CardContent } from "@/components/ui/card";

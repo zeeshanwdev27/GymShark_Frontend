@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { useDispatch } from "react-redux";
 import Overlay_Drawer from "../Overlay_Drawer/Overlay_Drawer";
-import { fetchProducts } from "@/features/product/productSlice";
+import { fetchProducts } from "@/features/Product/productSlice";
 
 import Products_Sidebar from "@/components/Products_Sidebar.jsx";
 import Products_Cards from "@/components/Products_Cards.jsx";
